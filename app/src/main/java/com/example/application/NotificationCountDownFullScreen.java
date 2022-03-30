@@ -22,6 +22,7 @@ public class NotificationCountDownFullScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorStatusBarCountDownOverScreen));
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -69,6 +70,7 @@ public class NotificationCountDownFullScreen extends AppCompatActivity {
             public void onClick(View view) {
                 NotificationManager manager = getApplicationContext().getSystemService(NotificationManager.class);
                 manager.cancel(2908);
+                StartForeGroundServicesNotification.vibrator.cancel();
                 finishAndRemoveTask();
             }
         });
