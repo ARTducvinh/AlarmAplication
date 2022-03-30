@@ -5,6 +5,7 @@ import static com.example.application.StartForeGroundServicesNotification.pauseM
 import static com.example.application.StartForeGroundServicesNotification.posPause;
 import static com.example.application.StartForeGroundServicesNotification.posSongChoice;
 import static com.example.application.StartForeGroundServicesNotification.songs;
+import static com.example.application.StartForeGroundServicesNotification.vibrator;
 
 import android.app.NotificationManager;
 import android.app.Service;
@@ -662,6 +663,7 @@ public class CountDownTimerFragment extends Fragment {
             boolean fromButtonOke = bundle.getBoolean("fromButtonOke", false);
 
             if (fromButtonOke) {
+                vibrator.cancel();
                 stopForeground(true);
                 JobScheduler jobScheduler = getApplicationContext().getSystemService(JobScheduler.class);
                 manager.cancelAll();

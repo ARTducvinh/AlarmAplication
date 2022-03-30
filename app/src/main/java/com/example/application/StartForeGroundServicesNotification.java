@@ -15,6 +15,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -41,6 +43,7 @@ public class StartForeGroundServicesNotification extends JobService {
     public static CountDownTimer countDownTimer;
     public static int posSongChoice = 0;
     int tempHour, tempMinutes, tempSeconds;
+    public static Vibrator vibrator;
 
     public static void startMusic() {
         if (countDownTimer != null) {
@@ -158,7 +161,6 @@ public class StartForeGroundServicesNotification extends JobService {
     }
 
     public void showNotification(int hour, int minutes, int seconds, NotificationManager manager) {
-
         //PENDING INTENT FOR CLICK ON NOTIFICATION
         Intent intentClicked = new Intent(this, MainActivity.class);
         Bundle bundleClicked = new Bundle();
@@ -237,6 +239,8 @@ public class StartForeGroundServicesNotification extends JobService {
 
     public void showNotificationOnTime() {
         stopMusic();
+        vibrator = (Vibrator) context.getSystemService(VIBRATOR_SERVICE);
+        VibrationEffect effect = VibrationEffect.createWaveform(new long[]{0, 1000, 900, 1000, 900},1);
         //WAKE UP SCREEN ON
         PowerManager pm = (PowerManager) getApplicationContext().getSystemService(Context.POWER_SERVICE);
         if (!pm.isInteractive()) {
@@ -278,6 +282,7 @@ public class StartForeGroundServicesNotification extends JobService {
                 .build();
 
         manager.notify(NOTIFICATION_NOTIFY_ID, notification);
+        vibrator.vibrate(effect);
     }
 
     public String textViewSumTime(int hour, int minute, int seconds) {
