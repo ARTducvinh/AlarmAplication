@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="BottomSheetThemeCustom" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialogAlarmCustom</item>
+    </style>
+
+    <style name="BottomSheetThemeCustomNotes" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetDialogAlarmCustom</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="BottomSheetDialogAlarmCustom" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="customTextSizeTimePicker">
+        <item name="android:textSize">25sp</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:divider">@drawable/custom_straight_line</item>
+    </style>
+
+
+    <style name="CustomBottomSheetBorder" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleCustom</item>
+    </style>
+
+    <style name="bottomSheetStyleCustom" parent="Theme.Design.BottomSheetDialog">
+        <item name="background">@android:color/transparent</item>
+    </style>
+
+</resources>

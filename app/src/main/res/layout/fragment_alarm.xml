@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayoutS">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerListAlarm"
+            android:layout_width="match_parent"
+            android:fadingEdge="horizontal"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:layout_marginTop="300dp"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/imageViewEmptyAlarm"
+            android:src="@drawable/ic_empty_alarm"
+            android:visibility="invisible"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewEmptyAlarm"
+            android:text="Không có báo thức nào"
+            android:textColor="#7C7C7C"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/poppins_regular"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+</RelativeLayout>

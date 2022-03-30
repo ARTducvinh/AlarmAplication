@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_background_regular_bottom">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hẹn giờ thường dùng"
+        android:textSize="18sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="monospace"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="20dp">
+
+        <NumberPicker
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/pickerHours"
+            android:layout_weight="1"
+            android:showDividers="none"
+            android:theme="@style/customStyleForNumberPicker"
+            android:selectionDividerHeight="0dp"
+            android:descendantFocusability="blocksDescendants"
+            android:fadingEdge="none"
+            android:layout_marginStart="20dp"
+            android:fadingEdgeLength="0dp"
+            android:requiresFadingEdge="none"/>
+
+        <NumberPicker
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/pickerMinutes"
+            android:layout_weight="1"
+            android:theme="@style/customStyleForNumberPicker"
+            android:selectionDividerHeight="0dp"
+            android:descendantFocusability="blocksDescendants"
+            android:fadingEdge="none"
+            android:layout_marginEnd="20dp"
+            android:fadingEdgeLength="0dp"
+            android:requiresFadingEdge="none"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_weight="2"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:id="@+id/buttonCancelSetTimeFavorites"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/custom_background_button_cancel"
+            android:gravity="center"
+            android:text="Hủy"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:layout_marginStart="30dp"
+            android:clickable="true"
+            android:enabled="true"/>
+
+        <TextView
+            android:id="@+id/buttonSetTimeFavorites"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/custom_background_button_ok"
+            android:gravity="center"
+            android:text="OK"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:enabled="true"/>
+
+    </LinearLayout>
+
+</LinearLayout>

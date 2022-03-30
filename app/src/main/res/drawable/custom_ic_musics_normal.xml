@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item>
+        <layer-list>
+
+            <item>
+                <shape android:shape="oval">
+                    <size android:height="20dp" android:width="20dp"/>
+                    <solid android:color="@color/brown"/>
+                </shape>
+            </item>
+
+
+
+
+            <item android:drawable="@drawable/ic_music"
+                    android:width="20dp" android:height="20dp" android:gravity="center"/>
+
+        </layer-list>
+    </item>
+
+</selector>

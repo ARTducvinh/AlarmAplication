@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayoutS">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayoutAlarm"
+            app:tabTextColor="@color/black"
+            android:layout_width="match_parent"
+            app:tabMode="fixed"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabIconTint="@color/custom_icon_tint_tab_layout"
+            app:tabGravity="center"
+            app:tabIndicatorColor="#156BA5"
+            android:layout_height="wrap_content"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPagerAlarm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/topToolbarDeleteAlarm"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/buttonCloseDeleteAlarm"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_close" />
+
+        <TextView
+            android:id="@+id/textCountItemSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/buttonCloseDeleteAlarm"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="100dp"
+            android:layout_toStartOf="@+id/buttonSelectAll"
+            android:layout_toEndOf="@+id/buttonCloseDeleteAlarm"
+            android:text="Chọn mục"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/buttonSelectAll"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_checklist" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal|center_vertical"
+        android:gravity="center"
+        android:paddingBottom="20dp"
+        android:id="@+id/layoutDeleteAlarm"
+        android:visibility="invisible">
+
+        <RelativeLayout
+            android:id="@+id/buttonDeleteAlarmLayout"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/buttonDeleteAlarm"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_delete_alarm"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonDeleteAlarm"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="7dp"
+                android:gravity="center"
+                android:text="Xóa"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonAddAlarm"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_add"
+        android:layout_marginBottom="45dp"
+        app:layout_anchorGravity="center_horizontal"
+        app:backgroundTint="@color/white"
+        android:elevation="1dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonStartCountTimeUp"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_start_count_up"
+        android:layout_marginBottom="45dp"
+        app:layout_anchorGravity="center_horizontal"
+        app:backgroundTint="@color/white"
+        android:elevation="1dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_height="wrap_content"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonStartAndPause"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_pause"
+        android:layout_marginBottom="45dp"
+        app:layout_anchorGravity="center_horizontal"
+        app:backgroundTint="@color/white"
+        android:elevation="1dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="115dp"
+        android:visibility="gone"
+        android:enabled="false"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonTakeTimeAndReset"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_baseline_pan_tool_alt_24"
+        android:layout_marginBottom="45dp"
+        app:layout_anchorGravity="center_horizontal"
+        app:backgroundTint="@color/white"
+        android:elevation="1dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="115dp"
+        android:visibility="gone"
+        android:enabled="false"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonStartAndPauseCountDown"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_pause"
+        android:layout_marginBottom="45dp"
+        app:layout_anchorGravity="center_horizontal"
+        app:backgroundTint="@color/white"
+        android:elevation="1dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="115dp"
+        android:visibility="gone"
+        android:enabled="false"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonResetCountDown"
+        android:layout_width="wrap_content"
+        android:src="@drawable/custom_button_start_count_up_time"
+        android:layout_marginBottom="45dp"
+        app:layout_anchorGravity="center_horizontal"
+        app:backgroundTint="@color/white"
+        android:elevation="1dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="115dp"
+        android:visibility="gone"
+        android:enabled="false"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButtonStartCountDown"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_start_count_up"
+        android:layout_marginBottom="45dp"
+        app:layout_anchorGravity="center_horizontal"
+        android:elevation="1dp"
+        app:backgroundTint="@color/white"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/floatingButtonSetMusic"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="55dp"
+        android:elevation="0dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginEnd="232dp"
+        android:background="@drawable/custom_ic_musics_normal"
+        android:visibility="gone"
+        android:enabled="false" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/floatingButtonFavoritesTime"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="55dp"
+        android:elevation="1dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginStart="232dp"
+        android:visibility="gone"
+        android:background="@drawable/custom_ic_list_notes_normal"
+        android:enabled="false"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

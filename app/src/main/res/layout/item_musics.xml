@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:layout_marginStart="35dp"
+    android:layout_marginEnd="10dp">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_default"
+        android:id="@+id/iconItemMusics"
+        app:tint="@color/custom_tint_item_musics"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mặc định"
+        android:textColor="#757575"
+        android:gravity="center"
+        android:layout_marginEnd="0dp"
+        android:id="@+id/textItemMusics"
+        android:layout_marginTop="10dp"
+        android:fontFamily="monospace"
+        android:textSize="13sp"/>
+
+</LinearLayout>

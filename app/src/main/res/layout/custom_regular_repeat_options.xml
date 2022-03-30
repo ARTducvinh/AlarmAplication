@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_background_regular_bottom"
+    android:id="@+id/regularRepeatLayout">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        android:id="@+id/onceRepeat"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@color/backgroundItemRegularSelected">
+
+        <TextView
+            android:id="@+id/textViewOnce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/OnceRepeat"
+            android:textColor="#06578E"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/regularOnceCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_check"
+            android:visibility="visible"
+            app:tint="#06578E" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:id="@+id/repeatAllDate"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@color/custom_item_alarm_click">
+
+        <TextView
+            android:id="@+id/textViewAllDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/AllDateRepeat"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/regularAllDateCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_check"
+            android:visibility="invisible"
+            app:tint="#06578E" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/from2To6"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@color/custom_item_alarm_click">
+
+        <TextView
+            android:id="@+id/textViewFrom2To6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/From2To6Repeat"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/regularFrom2To6Check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_check"
+            android:visibility="invisible"
+            app:tint="#06578E" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:id="@+id/optionsDate"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@color/custom_item_alarm_click">
+
+        <TextView
+            android:id="@+id/textViewOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="start|center_vertical"
+            android:text="@string/OptionsRepeat"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/regularOptionsCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_check"
+            android:visibility="invisible"
+            app:tint="#06578E" />
+    </RelativeLayout>
+
+</LinearLayout>

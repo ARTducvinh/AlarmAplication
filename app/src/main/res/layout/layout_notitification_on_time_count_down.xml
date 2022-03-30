@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="0dp"
+    android:paddingBottom="5dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5 giây"
+        android:textColor="@color/black"
+        android:fontFamily="monospace"
+        android:textAlignment="textStart"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:id="@+id/textViewOnTimeCountDown"
+        android:textSize="15sp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hẹn giờ"
+        android:textColor="#7E7D7D"
+        android:fontFamily="monospace"
+        android:textAlignment="textStart"
+        android:textStyle="bold"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/textViewOnTimeCountDown"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/custom_background_button_pause"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="OK"
+        android:textColor="#6E6C6C"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:id="@+id/buttonCountDownEnd"/>
+
+
+</RelativeLayout>

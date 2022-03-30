@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NotificationCountDownFullScreen"
+    android:background="#2F4240">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewTimeCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="16:20"
+            android:textColor="@color/white"
+            android:textSize="80sp" />
+
+        <TextView
+            android:id="@+id/textViewDateCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="24 thg 3 Thứ Năm"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_below="@+id/textViewTimeCurrent"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_default"
+            android:layout_below="@+id/textViewDateCurrent"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="170dp"
+            android:id="@+id/ic_notification"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ic_notification"
+            android:gravity="center"
+            android:text="Hết giờ"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="monospace"
+            android:id="@+id/a"
+            android:layout_marginTop="190dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewTimeCountDownEnd"
+            android:gravity="center"
+            android:layout_below="@+id/a"
+            android:fontFamily="monospace"
+            android:textSize="15sp"
+            android:text="6 giây"
+            android:textColor="@color/brown"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/custom_background_button_oke_count_down"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="OK"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:id="@+id/buttonCloseFullScreen"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

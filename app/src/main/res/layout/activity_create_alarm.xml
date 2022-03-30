@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:id="@+id/mainLayoutS">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/closeButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/ic_close"
+            android:layout_width="30dp"
+            android:clickable="true"
+            android:layout_height="30dp"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/textViewLabelAddAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Thêm báo thức"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewDisplayTimeRemain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewLabelAddAlarm"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:text="Báo thức sau 23 giờ 59 phút"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/buttonSetTime"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBaseline="@+id/closeButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_check" />
+
+
+    </RelativeLayout>
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        style="@style/Theme.AppCompat.Dialog.MinWidth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:descendantFocusability="blocksDescendants"
+        android:fitsSystemWindows="true"
+        android:scrollbarSize="30dp"
+        android:soundEffectsEnabled="true"
+        android:theme="@style/customTextSizeTimePicker"
+        android:timePickerMode="spinner" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timePicker"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/custom_item_alarm_click"
+            android:layout_marginTop="100dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:text="Nhạc chuông"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:drawableEnd="@drawable/ic__next"
+                android:text="Nhạc chuông mặc \n định"
+                android:textAlignment="textEnd"
+                android:textColor="#636363" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/regularRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/custom_item_alarm_click"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="Lặp lại"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textRegular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="15dp"
+                android:drawableEnd="@drawable/ic__next"
+                android:gravity="end|center_vertical"
+                android:text="Một lần"
+                android:textAlignment="textEnd"
+                android:textColor="#636363" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/custom_item_alarm_click"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
+                android:text="Rung khi báo thức"
+                android:textSize="20sp" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchVibrate"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="23dp"
+                android:background="@drawable/custom_background_switch_off"
+                android:checked="false"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/custom_backgound_switch" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/custom_item_alarm_click"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="Xóa sau khi đã báo thức"
+                android:textSize="20sp" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchOffAfterRing"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="23dp"
+                android:background="@drawable/custom_background_switch_off"
+                android:checked="false"
+                app:thumbTint="@color/white"
+                app:trackTint="@color/custom_backgound_switch" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutAddNote"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/custom_item_alarm_click"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="30dp"
+                android:text="Nhãn"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="15dp"
+                android:drawableEnd="@drawable/ic__next"
+                android:textAlignment="textEnd"
+                android:textColor="#636363" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

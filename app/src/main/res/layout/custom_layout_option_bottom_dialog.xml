@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_background_regular_bottom"
+    android:id="@+id/optionsMenuRegular">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|center_horizontal"
+                android:text="Lặp lại"
+                android:layout_marginTop="15dp"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutThu2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/custom_item_alarm_click">
+
+            <TextView
+                android:id="@+id/textThu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/Monday"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkBoxThu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textThu2"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:button="@drawable/custom_checkbox_state"
+                android:checked="false"
+                android:clickable="true"
+                android:focusable="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutThu3"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/custom_item_alarm_click">
+
+            <TextView
+                android:id="@+id/textThu3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/Tuesday"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkBoxThu3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textThu3"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:clickable="true"
+                android:button="@drawable/custom_checkbox_state"
+                android:checked="false"
+                android:focusable="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutThu4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/custom_item_alarm_click">
+
+            <TextView
+                android:id="@+id/textThu4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/Wednesday"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkBoxThu4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textThu4"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:clickable="true"
+                android:button="@drawable/custom_checkbox_state"
+                android:checked="false"
+                android:focusable="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutThu5"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/custom_item_alarm_click">
+
+            <TextView
+                android:id="@+id/textThu5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/Thurday"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkboxThu5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textThu5"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:button="@drawable/custom_checkbox_state"
+                android:checked="false"
+                android:clickable="true"
+                android:focusable="true" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layoutThu6"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/custom_item_alarm_click">
+
+            <TextView
+                android:id="@+id/textThu6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/Friday"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkboxThu6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textThu6"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:button="@drawable/custom_checkbox_state"
+                android:checked="false"
+                android:clickable="true"
+                android:focusable="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutThu7"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/custom_item_alarm_click">
+
+            <TextView
+                android:id="@+id/textThu7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/Saturday"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkboxThu7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textThu7"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:button="@drawable/custom_checkbox_state"
+                android:clickable="true"
+                android:checked="false"
+                android:focusable="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutThu8"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@color/custom_item_alarm_click">
+
+            <TextView
+                android:id="@+id/textThu8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:gravity="start|center_vertical"
+                android:text="@string/Sunday"
+                android:textSize="20sp" />
+
+            <CheckBox
+                android:id="@+id/checkBoxThu8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textThu8"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:button="@drawable/custom_checkbox_state"
+                android:clickable="true"
+                android:checked="false"
+                android:focusable="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/buttonCancelOptionsFrom2To8"
+                android:layout_width="140dp"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:background="@drawable/custom_background_button_cancel"
+                android:text="Hủy"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:clickable="true"
+                />
+
+            <TextView
+                android:id="@+id/buttonOkFrom2To8"
+                android:layout_width="140dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="30dp"
+                android:background="@drawable/custom_background_button_ok"
+                android:text="OK"
+                android:textSize="20sp"
+                android:clickable="true"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+        </LinearLayout>
+</LinearLayout>

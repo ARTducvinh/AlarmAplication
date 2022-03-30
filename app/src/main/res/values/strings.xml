@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">ngu ngốc</string>
+
+    <!--    STRING FOR ALARM APPLICATION-->
+    <string name="OnceRepeat">Một lần</string>
+    <string name="AllDateRepeat">Hằng ngày</string>
+    <string name="From2To6Repeat">Thứ hai đến Thứ sáu</string>
+    <string name="OptionsRepeat">Tùy chỉnh</string>
+    <string name="Monday">Thứ hai</string>
+    <string name="Tuesday">Thứ ba</string>
+    <string name="Wednesday">Thứ tư</string>
+    <string name="Thurday">Thứ năm</string>
+    <string name="Friday">Thứ sáu</string>
+    <string name="Saturday">Thứ bảy</string>
+    <string name="Sunday">Chủ nhật</string>
+    <!--    STRING FOR ALARM APPLICATION-->
+
+
+</resources>

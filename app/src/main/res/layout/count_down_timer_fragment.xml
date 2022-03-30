@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerHorizontal="true"
+    android:background="@color/white">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:weightSum="3"
+       android:orientation="horizontal"
+       android:paddingStart="20dp"
+       android:paddingEnd="20dp"
+       android:layout_marginTop="80dp"
+       android:divider="@color/brown"
+       android:showDividers="middle"
+       android:id="@+id/layoutNumberPicker">
+
+       <NumberPicker
+           android:layout_width="0dp"
+           android:layout_height="250dp"
+           android:layout_weight="1"
+           android:id="@+id/hoursPicker"
+           android:showDividers="none"
+           android:selectionDividerHeight="0dp"
+           android:descendantFocusability="blocksDescendants"
+           android:theme="@style/customStyleForNumberPicker"
+           android:alpha="3.0"/>
+
+       <NumberPicker
+           android:layout_width="0dp"
+           android:layout_height="250dp"
+           android:layout_weight="1"
+           android:id="@+id/minutesPicker"
+           android:showDividers="none"
+           android:selectionDividerHeight="0dp"
+           android:descendantFocusability="blocksDescendants"
+           android:theme="@style/customStyleForNumberPicker"
+           android:alpha="3.0"/>
+
+       <NumberPicker
+           android:layout_width="0dp"
+           android:layout_height="250dp"
+           android:layout_weight="1"
+           android:id="@+id/secondsPicker"
+           android:showDividers="none"
+           android:selectionDividerHeight="0dp"
+           android:descendantFocusability="blocksDescendants"
+           android:theme="@style/customStyleForNumberPicker"
+           android:alpha="3.0"/>
+
+   </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutCountDown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="205dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="6">
+            <TextView
+                android:id="@+id/textViewHourCountDown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="23"
+                android:textSize="50dp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/colonFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text=":"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textViewMinutesCountDown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="59"
+                android:textSize="50sp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/colonSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text=":"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textViewSecondsCountDown"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="59"
+                android:textSize="50dp"
+                android:visibility="visible" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewSumTime"
+            android:textSize="15sp"
+            android:fontFamily="monospace"
+            android:text="Tổng 2 giờ 2 phút 2 giây"
+            android:layout_below="@+id/layoutCountDown"
+            android:gravity="center"
+            android:visibility="visible"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="130dp"
+        android:gravity="center">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMusics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:nestedScrollingEnabled="true"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewListTimeFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

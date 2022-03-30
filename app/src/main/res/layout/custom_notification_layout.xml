@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/textViewHourNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="14:40"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewNoteNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewHourNotification"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Báo thức" />
+
+    <TextView
+        android:id="@+id/buttonTatAlarm"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="13dp"
+        android:background="@drawable/custom_background_tat_button"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Tắt"
+        android:textColor="#7A7A7A"
+        android:textSize="13sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:clickable="true"
+        android:focusable="true" />
+
+</RelativeLayout>

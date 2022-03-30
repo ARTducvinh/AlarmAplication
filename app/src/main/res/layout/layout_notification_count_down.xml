@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="0dp"
+    android:paddingBottom="5dp">
+
+
+    <TextView
+        android:id="@+id/textViewTimeCountdownNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="monospace"
+        android:text="10:30"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewStateNotification"
+        android:layout_below="@+id/textViewTimeCountdownNotification"
+        android:fontFamily="monospace"
+        android:textSize="15sp"
+        android:textAlignment="textStart"
+        android:text="Hẹn giờ đang chạy"
+        android:textColor="#7C7C7C"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"/>
+
+
+    <TextView
+        android:id="@+id/buttonStopCountDown"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/custom_background_button_pause"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="Dừng"
+        android:textColor="#6E6C6C"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
