@@ -38,6 +38,7 @@ import java.util.TimerTask;
 
 public class CountDownTimerFragment extends Fragment {
 
+    //VARIABLES
     public static MainActivity mMainActivity;
     public static LinearLayout pickerLayout, layoutCountDown;
     public static boolean stateFromButtonStopNotification = false;
@@ -64,6 +65,7 @@ public class CountDownTimerFragment extends Fragment {
     private View view;
 
 
+    //CONSTRUCTOR
     public CountDownTimerFragment(MainActivity mainActivity, Context context, int a, int b, int c, boolean d, int e, int f, int g) {
         mMainActivity = mainActivity;
         this.context = context;
@@ -83,6 +85,7 @@ public class CountDownTimerFragment extends Fragment {
         //createNotificationChannelID();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,7 +97,6 @@ public class CountDownTimerFragment extends Fragment {
         secondsPicker = view.findViewById(R.id.secondsPicker);
         recyclerViewMusics = view.findViewById(R.id.recyclerViewMusics);
         recyclerViewTimeListNotes = view.findViewById(R.id.recyclerViewListTimeFavorites);
-
 
         pickerLayout = view.findViewById(R.id.layoutNumberPicker);
         layoutCountDown = view.findViewById(R.id.layoutCountDown);
@@ -169,6 +171,7 @@ public class CountDownTimerFragment extends Fragment {
             }
         });
 
+        //DISABLE BUTTON START COUNT DOWN IF VALUES OF HOUR_PICKER, MINUTES_PICKER, SECONDS_PICKER equals 0
         if (hoursPicker.getValue() == 0 && minutesPicker.getValue() == 0 && secondsPicker.getValue() == 0) {
             mMainActivity.changeStateEnableButtonStartCountDown(1);
         }
@@ -194,6 +197,7 @@ public class CountDownTimerFragment extends Fragment {
         recyclerViewTimeListNotes.setLayoutManager(linearLayoutManager);
         recyclerViewTimeListNotes.setAdapter(favoritesItemAdapter);
 
+        //CHECK STATE RUNNING, IF RUNNING THEN RESTART WORK AND DON'T DO
         if (isIsRunning && StartForeGroundServicesNotification.timer != null && StartForeGroundServicesNotification.timerTask != null) {
             Log.i("AAA", "IS RUNNING");
             isRunning = true;
@@ -269,24 +273,29 @@ public class CountDownTimerFragment extends Fragment {
         return view;
     }
 
+
+    //INIT HOUR LIST FOR HOUR PICKER
     public void initHoursList() {
         for (int i = 0; i <= 23; i++) {
             hours.add(i < 10 ? "0" + i : String.valueOf(i));
         }
     }
 
+    //INIT HOUR LIST FOR MINUTES PICKER
     public void initMinutesList() {
         for (int i = 0; i <= 59; i++) {
             minutes.add(i < 10 ? "0" + i : String.valueOf(i));
         }
     }
 
+    //INIT HOUR LIST FOR SECONDS PICKER
     public void initSecondsList() {
         for (int i = 0; i <= 59; i++) {
             seconds.add(i < 10 ? "0" + i : String.valueOf(i));
         }
     }
 
+    //INIT LIST MUSICS FOR PLAY WHEN START COUNT DOWN
     public void initMusicsItemList() {
         MusicsItem item1 = new MusicsItem(R.raw.perfect_ed, R.drawable.ic_default, "Mặc định");
         MusicsItem item2 = new MusicsItem(R.raw.perfect_ed, R.drawable.ic_tree, "Tiếng rừng");
@@ -302,6 +311,7 @@ public class CountDownTimerFragment extends Fragment {
         itemListMusics.add(item6);
     }
 
+    //INIT LIST FAVORITES TIME
     public void initTimeFavoritesItemList() {
         TimeFavoritesItem item1 = new TimeFavoritesItem(0, 5, TimeFavoritesItem.TYPE_SPECIAL);
         timeFavoritesItems.add(item1);
