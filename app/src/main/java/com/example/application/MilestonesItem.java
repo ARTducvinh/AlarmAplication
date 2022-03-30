@@ -14,6 +14,9 @@ public class MilestonesItem {
         this.timeMilestone = timeMilestone;
     }
 
+    public static MilestonesItem createMilestonesItem(int orderItem, String timePlusItem, String timeMilestone) {
+        return new MilestonesItem(orderItem, timePlusItem, timeMilestone);
+    }
 
     //FUNCTIONS GET AND SET FOR ITEM
     public int getOrder() {
@@ -38,9 +41,5 @@ public class MilestonesItem {
 
     public void setTimeMilestone(String timeMilestone) {
         this.timeMilestone = timeMilestone;
-    }
-
-    public static MilestonesItem createMilestonesItem(int orderItem,String timePlusItem,String timeMilestone){
-        return new MilestonesItem(orderItem,timePlusItem,timeMilestone);
     }
 }

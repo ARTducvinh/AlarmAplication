@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayoutS"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:id="@+id/mainLayoutS">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,14 +13,14 @@
 
         <ImageView
             android:id="@+id/closeButton"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/ic_close"
             android:layout_width="30dp"
-            android:clickable="true"
             android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_close"
+            android:clickable="true"
             android:focusable="true" />
 
         <TextView
@@ -87,10 +87,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center"
             android:layout_gravity="center"
+            android:layout_marginTop="100dp"
             android:backgroundTint="@color/custom_item_alarm_click"
-            android:layout_marginTop="100dp">
+            android:gravity="center">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -118,8 +118,8 @@
             android:id="@+id/regularRepeat"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/custom_item_alarm_click"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:background="@color/custom_item_alarm_click">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,8 +148,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/custom_item_alarm_click"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:background="@color/custom_item_alarm_click">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -175,15 +175,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/custom_item_alarm_click"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:background="@color/custom_item_alarm_click">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="12dp"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
                 android:text="Xóa sau khi đã báo thức"
                 android:textSize="20sp" />
 
@@ -203,15 +203,15 @@
             android:id="@+id/layoutAddNote"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/custom_item_alarm_click"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:background="@color/custom_item_alarm_click">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="12dp"
                 android:layout_marginStart="30dp"
+                android:layout_marginTop="12dp"
                 android:text="Nhãn"
                 android:textSize="20sp" />
 

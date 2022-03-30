@@ -1,31 +1,28 @@
 package com.example.application;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class NotificationCountDownFullScreen extends AppCompatActivity {
 
-    TextView timeCurrent,dateCurrent,timeCountDown,buttonCloseFullScreen;
-    int hour,minutes,seconds;
+    TextView timeCurrent, dateCurrent, timeCountDown, buttonCloseFullScreen;
+    int hour, minutes, seconds;
     Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.colorStatusBarCountDownOverScreen));
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorStatusBarCountDownOverScreen));
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
@@ -38,10 +35,10 @@ public class NotificationCountDownFullScreen extends AppCompatActivity {
         buttonCloseFullScreen = findViewById(R.id.buttonCloseFullScreen);
 
         bundle = getIntent().getBundleExtra("bundle");
-        if(bundle != null){
-            hour = bundle.getInt("hour",23);
-            minutes = bundle.getInt("minutes",59);
-            seconds = bundle.getInt("seconds",59);
+        if (bundle != null) {
+            hour = bundle.getInt("hour", 23);
+            minutes = bundle.getInt("minutes", 59);
+            seconds = bundle.getInt("seconds", 59);
         }
 
         Calendar calendar = Calendar.getInstance();
@@ -63,7 +60,7 @@ public class NotificationCountDownFullScreen extends AppCompatActivity {
         timeCountDown.post(new Runnable() {
             @Override
             public void run() {
-                timeCountDown.setText(renderHourMinutesSecondsToString(hour,minutes,seconds));
+                timeCountDown.setText(renderHourMinutesSecondsToString(hour, minutes, seconds));
             }
         });
 
@@ -79,14 +76,14 @@ public class NotificationCountDownFullScreen extends AppCompatActivity {
     }
 
 
-    public String convertDateInternationalToVietnamese(Calendar calendar){
+    public String convertDateInternationalToVietnamese(Calendar calendar) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/E");
         String[] dateFormat = simpleDateFormat.format(calendar.getTime()).split("/");
         return dateFormat[0] + " thg " + dateFormat[1] + dayInWeekInVietNamese(dateFormat[2]);
     }
 
-    public String dayInWeekInVietNamese(String dayInWeek){
-        switch (dayInWeek){
+    public String dayInWeekInVietNamese(String dayInWeek) {
+        switch (dayInWeek) {
             case "Th 2":
                 return " Thứ 2";
             case "Th 3":
@@ -103,15 +100,15 @@ public class NotificationCountDownFullScreen extends AppCompatActivity {
         return " Chủ nhật";
     }
 
-    public String renderHourMinutesSecondsToString(int a,int b, int c){
+    public String renderHourMinutesSecondsToString(int a, int b, int c) {
 
-        String temp = (b < 10 ? "0" + b : String.valueOf(b)) +":"+ (c < 10 ? "0" + c : String.valueOf(c));
+        String temp = (b < 10 ? "0" + b : String.valueOf(b)) + ":" + (c < 10 ? "0" + c : String.valueOf(c));
 
-        if(a == 0){
+        if (a == 0) {
             return temp;
         }
 
-        return (a < 10 ? "0" + a : String.valueOf(a)) +":"+ temp;
+        return (a < 10 ? "0" + a : String.valueOf(a)) + ":" + temp;
     }
 
 }

@@ -1,8 +1,5 @@
 package com.example.application;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -16,19 +13,22 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class UIOverLockScreen extends AppCompatActivity {
 
-    TextView swipeUpToClose, textViewShowTimeOnTime, textViewNote,buttonSetAlarmRingAfter5Minutes
-            ,textViewDateUI;
+    TextView swipeUpToClose, textViewShowTimeOnTime, textViewNote, buttonSetAlarmRingAfter5Minutes, textViewDateUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("AAA","ON CREATE UI\n");
+        Log.i("AAA", "ON CREATE UI\n");
         super.onCreate(savedInstanceState);
-        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.colorStatusBarUIOverScreen));
+        getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.colorStatusBarUIOverScreen));
         setContentView(R.layout.ui_over_lock_screen);
         //NHẬN BUNDLE GỬI ĐẾN TỪ MUSIC SERVICES
         Bundle bundle = getIntent().getBundleExtra("bundle");
@@ -36,11 +36,11 @@ public class UIOverLockScreen extends AppCompatActivity {
         //ÁNH XẠ VIEW
         swipeUpToClose = (TextView) findViewById(R.id.swipUpToClose);
         textViewShowTimeOnTime = (TextView) findViewById(R.id.textViewHourUI);
-        textViewNote = (TextView)findViewById(R.id.textViewGoalUI);
-        buttonSetAlarmRingAfter5Minutes = (TextView)findViewById(R.id.imageViewTimeAgainUI);
-        textViewDateUI = (TextView)findViewById(R.id.textViewDateUI);
+        textViewNote = (TextView) findViewById(R.id.textViewGoalUI);
+        buttonSetAlarmRingAfter5Minutes = (TextView) findViewById(R.id.imageViewTimeAgainUI);
+        textViewDateUI = (TextView) findViewById(R.id.textViewDateUI);
         arrowStartAnimation();
-        setTextViewShowTimeOnTime(timeElement.getHour() + ":" + timeElement.getMinute(),timeElement.getNote());
+        setTextViewShowTimeOnTime(timeElement.getHour() + ":" + timeElement.getMinute(), timeElement.getNote());
         swipeUpToClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,21 +63,22 @@ public class UIOverLockScreen extends AppCompatActivity {
 
                 Calendar calendar = Calendar.getInstance();
                 //TẠO BÁO THỨC BÁO SAU 5 PHÚT NỮA
-                calendar.add(Calendar.MINUTE,5);
+                calendar.add(Calendar.MINUTE, 5);
 
                 String timeAfter5Minutes = simpleDateFormat.format(calendar.getTime());
                 String hour = timeAfter5Minutes.split(":")[0];
                 String minutes = timeAfter5Minutes.split(":")[1];
-                Log.i("AAA","TIME AFTER 5 MINUTES : "+hour+":"+minutes);
-                timeElement.setHour(hour);timeElement.setMinute(minutes);
+                Log.i("AAA", "TIME AFTER 5 MINUTES : " + hour + ":" + minutes);
+                timeElement.setHour(hour);
+                timeElement.setMinute(minutes);
                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 Intent intent = new Intent(getApplicationContext(), AlarmFragment.CustomBroadcast.class);
                 Bundle bundleSendToBroadcast = new Bundle();
-                bundleSendToBroadcast.putString("state","on");
-                bundleSendToBroadcast.putSerializable("timeEelement",timeElement);
+                bundleSendToBroadcast.putString("state", "on");
+                bundleSendToBroadcast.putSerializable("timeEelement", timeElement);
 
                 intent.setAction("runBackground");
-                intent.putExtra("bundle",bundleSendToBroadcast);
+                intent.putExtra("bundle", bundleSendToBroadcast);
 
                 Bundle bundlee = getIntent().getBundleExtra("bundle");
                 TimeElement timeElementt = (TimeElement) bundlee.getSerializable("timeEelement");
@@ -89,10 +90,10 @@ public class UIOverLockScreen extends AppCompatActivity {
                 }
                 //TẮT XONG THÌ PHẢI UPDATE LẠI UI CỦA BÁO THỨC VỪA BÁO XONG(TẮT QUA THÔNG BÁO)
                 //TẠO BÁO THỨC LẶP LẠI SAU 5 PHÚT
-                @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent_ = PendingIntent.getBroadcast(getApplicationContext(),timeElement.getIdAlarm(),intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent_ = PendingIntent.getBroadcast(getApplicationContext(), timeElement.getIdAlarm(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
                 //SAVE PENDING INTENT DATA TO DATABASE
                 Parcel parcel = Parcel.obtain();
-                CustomPendingIntent customPendingIntent = CustomPendingIntent.getBroadcast(timeElement.getIdAlarm(),intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                CustomPendingIntent customPendingIntent = CustomPendingIntent.getBroadcast(timeElement.getIdAlarm(), intent, PendingIntent.FLAG_CANCEL_CURRENT);
                 parcel.writeValue(customPendingIntent);
                 byte[] bytes = parcel.marshall();
                 parcel.recycle();
@@ -100,7 +101,7 @@ public class UIOverLockScreen extends AppCompatActivity {
                 a = new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        new SaveDataToSQLite(getApplicationContext()).saveDataToTablePendingIntent(timeElement.getIdAlarm(),bytes);
+                        new SaveDataToSQLite(getApplicationContext()).saveDataToTablePendingIntent(timeElement.getIdAlarm(), bytes);
                     }
                 });
                 a.start();
@@ -116,12 +117,12 @@ public class UIOverLockScreen extends AppCompatActivity {
     }
 
     //ANIMATION CHO NÚT MŨI TÊN
-    public void arrowStartAnimation(){
-        Animation animation = AnimationUtils.loadAnimation(this,R.anim.anim_arrow_move_up);
+    public void arrowStartAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_arrow_move_up);
         swipeUpToClose.setAnimation(animation);
     }
 
-    public void showWhenLockedAndTurnScreenOn(){
+    public void showWhenLockedAndTurnScreenOn() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(true);
             setTurnScreenOn(true);
@@ -134,7 +135,7 @@ public class UIOverLockScreen extends AppCompatActivity {
 
 
     //SET TEXT NOTE VÀ THỜI GIAN HẸN BÁO THỨC
-    public void setTextViewShowTimeOnTime(String time,String note){
+    public void setTextViewShowTimeOnTime(String time, String note) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -142,7 +143,7 @@ public class UIOverLockScreen extends AppCompatActivity {
                     @Override
                     public void run() {
                         textViewShowTimeOnTime.setText(time);
-                        Log.i("AAA","CLMMM CHAY DI\n");
+                        Log.i("AAA", "CLMMM CHAY DI\n");
                     }
                 });
             }
@@ -150,12 +151,12 @@ public class UIOverLockScreen extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                     textViewNote.post(new Runnable() {
-                         @Override
-                         public void run() {
-                            textViewNote.setText(note);
-                         }
-                     });
+                textViewNote.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        textViewNote.setText(note);
+                    }
+                });
             }
         }).start();
         new Thread(new Runnable() {
@@ -180,17 +181,17 @@ public class UIOverLockScreen extends AppCompatActivity {
                 Bundle bundleOff = new Bundle();
                 Intent intent = new Intent(UIOverLockScreen.this, AlarmFragment.CustomBroadcast.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                bundleOff.putString("state","off");
-                bundleOff.putSerializable("timeEelement",timeElement);
+                bundleOff.putString("state", "off");
+                bundleOff.putSerializable("timeEelement", timeElement);
                 //bundleOff.putParcelable("pendingIntent",pendingIntent);
-                intent.putExtra("bundle",bundleOff);
+                intent.putExtra("bundle", bundleOff);
                 //intent.putExtra("pendingIntent",pendingIntent);
-                Log.i("AAA","ON UI SENDBROADCAST\n");
+                Log.i("AAA", "ON UI SENDBROADCAST\n");
                 //DELETE ALARM IN DATABASE
-                new SaveDataToSQLite(getApplicationContext()).queryToSaveDataToDatabase("UPDATE "+SaveDataToSQLite.TABLE_NAME +
-                        " SET "+SaveDataToSQLite.COLUMN_NAME_STATE_ALARM+"="+"0"+
-                        " WHERE "+
-                        SaveDataToSQLite.COLUMN_NAME_ID+"="+timeElement.getIdAlarm());
+                new SaveDataToSQLite(getApplicationContext()).queryToSaveDataToDatabase("UPDATE " + SaveDataToSQLite.TABLE_NAME +
+                        " SET " + SaveDataToSQLite.COLUMN_NAME_STATE_ALARM + "=" + "0" +
+                        " WHERE " +
+                        SaveDataToSQLite.COLUMN_NAME_ID + "=" + timeElement.getIdAlarm());
 
                 sendBroadcast(intent);
             }
@@ -201,18 +202,18 @@ public class UIOverLockScreen extends AppCompatActivity {
     }
 
 
-    public String convertDateInternationalToVietnamese(){
+    public String convertDateInternationalToVietnamese() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/E");
         String[] dateFormat = simpleDateFormat.format(calendar.getTime()).split("/");
-        Log.i("AAA","TIME IS SETTES : "+dateFormat[0]);
-        Log.i("AAA","TIME IS SETTES : "+dateFormat[1]);
-        Log.i("AAA","TIME IS SETTES : "+dateFormat[2]);
+        Log.i("AAA", "TIME IS SETTES : " + dateFormat[0]);
+        Log.i("AAA", "TIME IS SETTES : " + dateFormat[1]);
+        Log.i("AAA", "TIME IS SETTES : " + dateFormat[2]);
         return dateFormat[0] + " thg " + dateFormat[1] + dayInWeekInVietNamese(dateFormat[2]);
     }
 
-    public String dayInWeekInVietNamese(String dayInWeek){
-        switch (dayInWeek){
+    public String dayInWeekInVietNamese(String dayInWeek) {
+        switch (dayInWeek) {
             case "Th 2":
                 return " Thứ 2";
             case "Th 3":
@@ -232,6 +233,6 @@ public class UIOverLockScreen extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i("AAA","ON UI DESTROY\n");
+        Log.i("AAA", "ON UI DESTROY\n");
     }
 }

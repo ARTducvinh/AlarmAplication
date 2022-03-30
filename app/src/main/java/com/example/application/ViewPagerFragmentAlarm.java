@@ -4,17 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ViewPagerFragmentAlarm extends FragmentStateAdapter {
     //CÁC THUỘC TÍNH PRIVATE
-    private final String[] titles = {"FIRST","TWO","THREE"};
-    private List<Fragment> listFragment = new ArrayList<>();
+    private List<Fragment> listFragment;
 
     //HÀM KHỞI TẠO
-    public ViewPagerFragmentAlarm(@NonNull FragmentActivity fragmentActivity,List<Fragment> listFragment) {
+    public ViewPagerFragmentAlarm(@NonNull FragmentActivity fragmentActivity, List<Fragment> listFragment) {
         super(fragmentActivity);
         this.listFragment = listFragment;
     }

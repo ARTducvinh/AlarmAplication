@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements ChangeStateButton
                 }
                 else{
                     if(position == 3){
-                        if(countDownTimerFragment.isStarted){
+                        if(CountDownTimerFragment.isStarted){
                             showFloatingButtonAtFragment3(View.GONE);
                             showButtonResetCountDown(View.VISIBLE);
                             showButtonPauseAndStartCountDown(View.VISIBLE);
@@ -425,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements ChangeStateButton
                     });
                 }
                 else {
-                    Log.i("AAA", String.valueOf("MUSIC NULL : "+mediaPlayer == null ? true:false));
+                    Log.i("AAA", String.valueOf("MUSIC NULL : " + mediaPlayer == null));
                     startCountDown = true;
                     CountDownTimerFragment.isRunning = true;
                     //countDownTimerFragment.startCountDownFunction(countDownTimerFragment.getHoursReturnTextView(), countDownTimerFragment.getMinutesReturnTextView(), countDownTimerFragment.getSecondsReturnTextView());

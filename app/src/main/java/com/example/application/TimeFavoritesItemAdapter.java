@@ -9,16 +9,11 @@ import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SortedListAdapterCallback;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,77 +28,26 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
     public static CountDownTimerFragment countDownTimerFragment;
     @SuppressLint("StaticFieldLeak")
     public static BottomSheetDialog bottomSheetDialogAddTimeFavorites;
+    public static List<ViewHolderNormal> viewList = new ArrayList<>();
+    public static List<Boolean> stateDelete = new ArrayList<>();
     List<String> hoursPickerValues = new ArrayList<>();
     List<String> minutesPickerValues = new ArrayList<>();
-    public static List<ViewHolderNormal> viewList = new ArrayList<>();
-    NumberPicker hoursPicker,minutesPicker;
-    TextView buttonCancel,buttonOke;
-    public static List<Boolean> stateDelete = new ArrayList<>();
+    NumberPicker hoursPicker, minutesPicker;
+    TextView buttonCancel, buttonOke;
 
 
-    public TimeFavoritesItemAdapter(Context context,List<TimeFavoritesItem> list,CountDownTimerFragment countDownTimerFragment){
+    public TimeFavoritesItemAdapter(Context context, List<TimeFavoritesItem> list, CountDownTimerFragment countDownTimerFragment) {
         TimeFavoritesItemAdapter.context = context;
         favoritesItemList = list;
         TimeFavoritesItemAdapter.countDownTimerFragment = countDownTimerFragment;
-        bottomSheetDialogAddTimeFavorites = new BottomSheetDialog(context,R.style.CustomBottomSheetBorder);
+        bottomSheetDialogAddTimeFavorites = new BottomSheetDialog(context, R.style.CustomBottomSheetBorder);
         initHoursPickerValues();
         initMinutesPickerValues();
         createBottomSheetDialogAddTimeFragment();
         //initStateDelete();
     }
 
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.i("AAA","ITEM ON BIND");
-        View view;
-        if(viewType == TimeFavoritesItem.TYPE_NORMAL){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.time_favorites_item,parent,false);
-            return new ViewHolderNormal(view,this);
-        }
-        else{
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_add,parent,false);
-            return new ViewHolderSpecial(view);
-        }
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        TimeFavoritesItem item = favoritesItemList.get(position);
-        if(holder.getItemViewType() == TimeFavoritesItem.TYPE_NORMAL){
-            ViewHolderNormal normal = (ViewHolderNormal) holder;
-            normal.textViewTime.setText(String.valueOf(item.calculateTimeToMinutes()));
-            viewList.add(normal);
-            sortCollection();
-            changeStateAllViews();
-        }
-        else{
-            if(favoritesItemList.size()==1){
-                countDownTimerFragment.recyclerViewTimeListNotes.setPadding(410,0,0,0);
-            }
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        if(favoritesItemList == null){
-            return 0;
-        }
-        return favoritesItemList.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        TimeFavoritesItem item = favoritesItemList.get(position);
-        if(item.getType() == TimeFavoritesItem.TYPE_NORMAL){
-            return TimeFavoritesItem.TYPE_NORMAL;
-        }
-        else{
-            return TimeFavoritesItem.TYPE_SPECIAL;
-        }
-    }
-
-    public static void sortCollection(){
+    public static void sortCollection() {
         viewList.sort(new Comparator<ViewHolderNormal>() {
             @Override
             public int compare(ViewHolderNormal viewHolderNormal, ViewHolderNormal t1) {
@@ -112,34 +56,89 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
         });
     }
 
-    public void initHoursPickerValues(){
+    public static void changeStateViewAtIndex(int index) {
+        viewList.get(index).textViewDelete.setVisibility(View.GONE);
+        viewList.get(index).textViewTime.setVisibility(View.VISIBLE);
+        viewList.get(index).textViewMinutesText.setVisibility(View.VISIBLE);
+        stateDelete.set(index, false);
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Log.i("AAA", "ITEM ON BIND");
+        View view;
+        if (viewType == TimeFavoritesItem.TYPE_NORMAL) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.time_favorites_item, parent, false);
+            return new ViewHolderNormal(view, this);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_add, parent, false);
+            return new ViewHolderSpecial(view);
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        TimeFavoritesItem item = favoritesItemList.get(position);
+        if (holder.getItemViewType() == TimeFavoritesItem.TYPE_NORMAL) {
+            ViewHolderNormal normal = (ViewHolderNormal) holder;
+            normal.textViewTime.setText(String.valueOf(item.calculateTimeToMinutes()));
+            viewList.add(normal);
+            sortCollection();
+            changeStateAllViews();
+        } else {
+            if (favoritesItemList.size() == 1) {
+                countDownTimerFragment.recyclerViewTimeListNotes.setPadding(410, 0, 0, 0);
+            }
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        if (favoritesItemList == null) {
+            return 0;
+        }
+        return favoritesItemList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        TimeFavoritesItem item = favoritesItemList.get(position);
+        if (item.getType() == TimeFavoritesItem.TYPE_NORMAL) {
+            return TimeFavoritesItem.TYPE_NORMAL;
+        } else {
+            return TimeFavoritesItem.TYPE_SPECIAL;
+        }
+    }
+
+    public void initHoursPickerValues() {
         for (int i = 0; i <= 23; i++) {
-            hoursPickerValues.add( i < 10 ? "0" + i : String.valueOf(i));
+            hoursPickerValues.add(i < 10 ? "0" + i : String.valueOf(i));
         }
     }
 
-    public void initMinutesPickerValues(){
+    public void initMinutesPickerValues() {
         for (int i = 0; i <= 59; i++) {
-            minutesPickerValues.add( i < 10 ? "0" + i : String.valueOf(i));
+            minutesPickerValues.add(i < 10 ? "0" + i : String.valueOf(i));
         }
     }
 
-    public void changeStateAllViews(){
+    public void changeStateAllViews() {
         for (int i = 0; i < viewList.size(); i++) {
             changeStateViewAtIndex(i);
         }
     }
 
-    public void changeStateDeleteForFAll(){
+    public void changeStateDeleteForFAll() {
         for (int i = 0; i < stateDelete.size(); i++) {
-            stateDelete.set(i,false);
+            stateDelete.set(i, false);
         }
     }
 
     @SuppressLint("CutPasteId")
-    public void createBottomSheetDialogAddTimeFragment(){
+    public void createBottomSheetDialogAddTimeFragment() {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_add_time_favorites,null,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.bottom_sheet_add_time_favorites, null, false);
         //HOOKS VIEWS
         hoursPicker = view.findViewById(R.id.pickerHours);
         minutesPicker = view.findViewById(R.id.pickerMinutes);
@@ -147,11 +146,11 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
         buttonOke = view.findViewById(R.id.buttonSetTimeFavorites);
         //SET VALUES FOR HOURS AND MINUTES PICKER
         hoursPicker.setMinValue(0);
-        hoursPicker.setMaxValue(hoursPickerValues.size()-1);
+        hoursPicker.setMaxValue(hoursPickerValues.size() - 1);
         hoursPicker.setDisplayedValues(hoursPickerValues.toArray(new String[]{}));
 
         minutesPicker.setMinValue(0);
-        minutesPicker.setMaxValue(minutesPickerValues.size()-1);
+        minutesPicker.setMaxValue(minutesPickerValues.size() - 1);
         minutesPicker.setDisplayedValues(minutesPickerValues.toArray(new String[]{}));
 
         hoursPicker.setValue(0);
@@ -168,16 +167,16 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onClick(View view) {
-                TimeFavoritesItem item = new TimeFavoritesItem(hoursPicker.getValue(),minutesPicker.getValue(),TimeFavoritesItem.TYPE_NORMAL);
+                TimeFavoritesItem item = new TimeFavoritesItem(hoursPicker.getValue(), minutesPicker.getValue(), TimeFavoritesItem.TYPE_NORMAL);
                 int index = findPositionToInsertNewItem(item.calculateTimeToMinutes());
                 stateDelete.add(false);
-                favoritesItemList.add(index,item);
+                favoritesItemList.add(index, item);
                 notifyItemInserted(index);
                 hoursPicker.setValue(0);
                 minutesPicker.setValue(5);
                 bottomSheetDialogAddTimeFavorites.dismiss();
-                if(favoritesItemList.size() > 1){
-                    countDownTimerFragment.recyclerViewTimeListNotes.setPadding(0,0,0,0);
+                if (favoritesItemList.size() > 1) {
+                    countDownTimerFragment.recyclerViewTimeListNotes.setPadding(0, 0, 0, 0);
                 }
             }
         });
@@ -185,11 +184,10 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
         bottomSheetDialogAddTimeFavorites.setContentView(view);
     }
 
-
-    public int findPositionToInsertNewItem(int values){
+    public int findPositionToInsertNewItem(int values) {
         List<Integer> listValuesMinutes = new ArrayList<>();
 
-        for (int i = 0; i < favoritesItemList.size()-1; i++) {
+        for (int i = 0; i < favoritesItemList.size() - 1; i++) {
             listValuesMinutes.add(favoritesItemList.get(i).calculateTimeToMinutes());
         }
 
@@ -199,11 +197,12 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
         return listValuesMinutes.indexOf(values);
     }
 
-    public static class ViewHolderNormal extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
-        TextView textViewTime,textViewDelete,textViewMinutesText;
+    public static class ViewHolderNormal extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        TextView textViewTime, textViewDelete, textViewMinutesText;
         RelativeLayout backgroundTimeFavoritesItem;
         TimeFavoritesItemAdapter adapter;
-        public ViewHolderNormal(@NonNull View itemView,TimeFavoritesItemAdapter adapter) {
+
+        public ViewHolderNormal(@NonNull View itemView, TimeFavoritesItemAdapter adapter) {
             super(itemView);
             textViewTime = itemView.findViewById(R.id.timeMinutes);
             textViewDelete = itemView.findViewById(R.id.textDelete);
@@ -216,18 +215,17 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
 
         @Override
         public void onClick(View view) {
-            if(stateDelete.get(getAdapterPosition())){
+            if (stateDelete.get(getAdapterPosition())) {
                 stateDelete.remove(getAdapterPosition());
                 viewList.remove(getAdapterPosition());
 
                 favoritesItemList.remove(getAdapterPosition());
                 adapter.notifyItemRemoved(getAdapterPosition());
-                if(favoritesItemList.size()==1){
-                    countDownTimerFragment.recyclerViewTimeListNotes.setPadding(410,0,0,0);
+                if (favoritesItemList.size() == 1) {
+                    countDownTimerFragment.recyclerViewTimeListNotes.setPadding(410, 0, 0, 0);
                 }
                 sortCollection();
-            }
-            else{
+            } else {
                 CountDownTimerFragment.mMainActivity.changeStateEnableButtonStartCountDown(0);
                 countDownTimerFragment.showRecyclerViewTimeFavorites(View.GONE);
                 CountDownTimerFragment.mMainActivity.changeStateButtonSetTimeFavoritesClose();
@@ -245,20 +243,19 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
 
 
             for (int i = 0; i < stateDelete.size(); i++) {
-                stateDelete.set(i,false);
+                stateDelete.set(i, false);
             }
 
-            stateDelete.set(getAdapterPosition(),true);
+            stateDelete.set(getAdapterPosition(), true);
 
 
             //FIX STATEDELETE TRUE BUT UPDATE WRONG VIEW
-            for (int i = 0; i < viewList.size(); i++){
-                if(stateDelete.get(i)){
+            for (int i = 0; i < viewList.size(); i++) {
+                if (stateDelete.get(i)) {
                     viewList.get(getAdapterPosition()).textViewTime.setVisibility(View.GONE);
                     viewList.get(getAdapterPosition()).textViewMinutesText.setVisibility(View.GONE);
                     viewList.get(getAdapterPosition()).textViewDelete.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     changeStateViewAtIndex(i);
                 }
             }
@@ -267,16 +264,7 @@ public class TimeFavoritesItemAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    public static void changeStateViewAtIndex(int index){
-        viewList.get(index).textViewDelete.setVisibility(View.GONE);
-        viewList.get(index).textViewTime.setVisibility(View.VISIBLE);
-        viewList.get(index).textViewMinutesText.setVisibility(View.VISIBLE);
-        stateDelete.set(index,false);
-    }
-
-
-
-    public static class ViewHolderSpecial extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolderSpecial extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ViewHolderSpecial(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);

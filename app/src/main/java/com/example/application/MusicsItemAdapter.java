@@ -13,7 +13,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +28,12 @@ import java.util.List;
 
 public class MusicsItemAdapter extends RecyclerView.Adapter<MusicsItemAdapter.ViewHolder> {
 
-    List<MusicsItem> itemList;
     public static List<ImageView> viewList;
     public static Context context;
+    List<MusicsItem> itemList;
 
 
-
-    public MusicsItemAdapter(Context context,List<MusicsItem> list){
+    public MusicsItemAdapter(Context context, List<MusicsItem> list) {
         MusicsItemAdapter.context = context;
         this.itemList = list;
         viewList = new ArrayList<>();
@@ -45,7 +43,7 @@ public class MusicsItemAdapter extends RecyclerView.Adapter<MusicsItemAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_musics,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_musics, parent, false);
         return new ViewHolder(view);
     }
 
@@ -55,7 +53,7 @@ public class MusicsItemAdapter extends RecyclerView.Adapter<MusicsItemAdapter.Vi
         MusicsItem item = itemList.get(position);
         holder.icon.setImageResource(item.getIcon());
         holder.title.setText(item.getTitleMusics());
-        if(position == posSongChoice){
+        if (position == posSongChoice) {
             holder.icon.setImageTintList(ColorStateList.valueOf(Color.parseColor("#F03A54EC")));
         }
     }
@@ -69,10 +67,10 @@ public class MusicsItemAdapter extends RecyclerView.Adapter<MusicsItemAdapter.Vi
     //TRY SET SOUND FOR NOTIFICATION WHEN PLAY
 
 
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView icon;
         TextView title;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             icon = itemView.findViewById(R.id.iconItemMusics);
@@ -84,35 +82,34 @@ public class MusicsItemAdapter extends RecyclerView.Adapter<MusicsItemAdapter.Vi
         public void onClick(View view) {
             //SAVE TO SHARED PREFERENCES.
             posSongChoice = getAdapterPosition();
-            SharedPreferences sharedPreferences = context.getSharedPreferences("timeCountDown",Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = context.getSharedPreferences("timeCountDown", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("posSongChoice",posSongChoice);
+            editor.putInt("posSongChoice", posSongChoice);
             editor.commit();
             //CHANGE VIEW CLICKED AND NOT
             for (int i = 0; i < viewList.size(); i++) {
-                if(i == getAdapterPosition()){
+                if (i == getAdapterPosition()) {
                     viewList.get(i).setImageTintList(ColorStateList.valueOf(Color.parseColor("#F03A54EC")));
-                }
-                else{
+                } else {
                     viewList.get(i).setImageTintList(ColorStateList.valueOf(Color.parseColor("#A5A4A4")));
                 }
             }
             //START RUN TEST MUSICS FOR USERS LISTEN
-            if(getAdapterPosition() != 0 && !hasStarted[getAdapterPosition()]){
-                if(countDownTimer != null){
+            if (getAdapterPosition() != 0 && !hasStarted[getAdapterPosition()]) {
+                if (countDownTimer != null) {
                     countDownTimer.cancel();
                 }
                 Arrays.fill(hasStarted, false);
                 hasStarted[getAdapterPosition()] = true;
-                if(mediaPlayer != null){
+                if (mediaPlayer != null) {
                     mediaPlayer.reset();
                     mediaPlayer.release();
                     mediaPlayer = null;
                 }
-                mediaPlayer = MediaPlayer.create(context,songs[getAdapterPosition()]);
+                mediaPlayer = MediaPlayer.create(context, songs[getAdapterPosition()]);
                 mediaPlayer.setLooping(true);
                 mediaPlayer.start();
-                countDownTimer = new CountDownTimer(7000,1000) {
+                countDownTimer = new CountDownTimer(7000, 1000) {
                     @Override
                     public void onTick(long l) {
 
@@ -120,19 +117,18 @@ public class MusicsItemAdapter extends RecyclerView.Adapter<MusicsItemAdapter.Vi
 
                     @Override
                     public void onFinish() {
-                        if(!isRunning){
+                        if (!isRunning) {
                             mediaPlayer.reset();
                             mediaPlayer.release();
                             mediaPlayer = null;
                         }
                     }
                 }.start();
-            }
-            else{
-                if(countDownTimer != null){
+            } else {
+                if (countDownTimer != null) {
                     countDownTimer.cancel();
                 }
-                if(mediaPlayer != null){
+                if (mediaPlayer != null) {
                     mediaPlayer.reset();
                     mediaPlayer.release();
                     mediaPlayer = null;

@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayoutS"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainLayoutS">
+    android:background="@color/white">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayoutAlarm"
-            app:tabTextColor="@color/black"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="center"
+            app:tabIconTint="@color/custom_icon_tint_tab_layout"
+            app:tabIndicatorColor="#156BA5"
             app:tabMode="fixed"
             app:tabRippleColor="@android:color/transparent"
-            app:tabIconTint="@color/custom_icon_tint_tab_layout"
-            app:tabGravity="center"
-            app:tabIndicatorColor="#156BA5"
-            android:layout_height="wrap_content"/>
+            app:tabTextColor="@color/black" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPagerAlarm"
@@ -30,9 +30,9 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/topToolbarDeleteAlarm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/topToolbarDeleteAlarm"
         android:orientation="horizontal"
         android:visibility="invisible">
 
@@ -72,12 +72,12 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layoutDeleteAlarm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal|center_vertical"
         android:gravity="center"
         android:paddingBottom="20dp"
-        android:id="@+id/layoutDeleteAlarm"
         android:visibility="invisible">
 
         <RelativeLayout
@@ -108,117 +108,117 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonAddAlarm"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_add"
-        android:layout_marginBottom="45dp"
-        app:layout_anchorGravity="center_horizontal"
-        app:backgroundTint="@color/white"
-        android:elevation="1dp"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="45dp"
+        android:elevation="1dp"
+        android:src="@drawable/ic_add"
+        android:visibility="gone"
+        app:backgroundTint="@color/white"
+        app:layout_anchorGravity="center_horizontal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonStartCountTimeUp"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_start_count_up"
-        android:layout_marginBottom="45dp"
-        app:layout_anchorGravity="center_horizontal"
-        app:backgroundTint="@color/white"
-        android:elevation="1dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:layout_height="wrap_content"/>
+        android:layout_marginBottom="45dp"
+        android:elevation="1dp"
+        android:src="@drawable/ic_start_count_up"
+        app:backgroundTint="@color/white"
+        app:layout_anchorGravity="center_horizontal" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonStartAndPause"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_pause"
-        android:layout_marginBottom="45dp"
-        app:layout_anchorGravity="center_horizontal"
-        app:backgroundTint="@color/white"
-        android:elevation="1dp"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginStart="115dp"
+        android:layout_marginBottom="45dp"
+        android:elevation="1dp"
+        android:enabled="false"
+        android:src="@drawable/ic_pause"
         android:visibility="gone"
-        android:enabled="false"/>
+        app:backgroundTint="@color/white"
+        app:layout_anchorGravity="center_horizontal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonTakeTimeAndReset"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_baseline_pan_tool_alt_24"
-        android:layout_marginBottom="45dp"
-        app:layout_anchorGravity="center_horizontal"
-        app:backgroundTint="@color/white"
-        android:elevation="1dp"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginEnd="115dp"
+        android:layout_marginBottom="45dp"
+        android:elevation="1dp"
+        android:enabled="false"
+        android:src="@drawable/ic_baseline_pan_tool_alt_24"
         android:visibility="gone"
-        android:enabled="false"/>
+        app:backgroundTint="@color/white"
+        app:layout_anchorGravity="center_horizontal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonStartAndPauseCountDown"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_pause"
-        android:layout_marginBottom="45dp"
-        app:layout_anchorGravity="center_horizontal"
-        app:backgroundTint="@color/white"
-        android:elevation="1dp"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginStart="115dp"
+        android:layout_marginBottom="45dp"
+        android:elevation="1dp"
+        android:enabled="false"
+        android:src="@drawable/ic_pause"
         android:visibility="gone"
-        android:enabled="false"/>
+        app:backgroundTint="@color/white"
+        app:layout_anchorGravity="center_horizontal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonResetCountDown"
         android:layout_width="wrap_content"
-        android:src="@drawable/custom_button_start_count_up_time"
-        android:layout_marginBottom="45dp"
-        app:layout_anchorGravity="center_horizontal"
-        app:backgroundTint="@color/white"
-        android:elevation="1dp"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_marginEnd="115dp"
+        android:layout_marginBottom="45dp"
+        android:elevation="1dp"
+        android:enabled="false"
+        android:src="@drawable/custom_button_start_count_up_time"
         android:visibility="gone"
-        android:enabled="false"/>
+        app:backgroundTint="@color/white"
+        app:layout_anchorGravity="center_horizontal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingButtonStartCountDown"
         android:layout_width="wrap_content"
-        android:src="@drawable/ic_start_count_up"
-        android:layout_marginBottom="45dp"
-        app:layout_anchorGravity="center_horizontal"
-        android:elevation="1dp"
-        app:backgroundTint="@color/white"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="45dp"
+        android:elevation="1dp"
+        android:src="@drawable/ic_start_count_up"
+        android:visibility="gone"
+        app:backgroundTint="@color/white"
+        app:layout_anchorGravity="center_horizontal" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/floatingButtonSetMusic"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="55dp"
-        android:elevation="0dp"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginEnd="232dp"
+        android:layout_marginBottom="55dp"
         android:background="@drawable/custom_ic_musics_normal"
-        android:visibility="gone"
-        android:enabled="false" />
+        android:elevation="0dp"
+        android:enabled="false"
+        android:visibility="gone" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/floatingButtonFavoritesTime"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="55dp"
-        android:elevation="1dp"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginStart="232dp"
-        android:visibility="gone"
+        android:layout_marginBottom="55dp"
         android:background="@drawable/custom_ic_list_notes_normal"
-        android:enabled="false"/>
+        android:elevation="1dp"
+        android:enabled="false"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

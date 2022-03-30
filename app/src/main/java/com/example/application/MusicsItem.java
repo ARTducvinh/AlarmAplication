@@ -26,6 +26,7 @@ public class MusicsItem {
     public void setTitleMusics(String titleMusics) {
         this.titleMusics = titleMusics;
     }
+
     public int getIcon() {
         return icon;
     }

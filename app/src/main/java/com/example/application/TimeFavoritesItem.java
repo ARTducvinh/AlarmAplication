@@ -4,12 +4,11 @@ import java.util.Objects;
 
 public class TimeFavoritesItem {
 
+    public static final int TYPE_NORMAL = 0;
+    public static final int TYPE_SPECIAL = 1;
     int hour;
     int minute;
     int type;
-
-    public static final int TYPE_NORMAL = 0;
-    public static final int TYPE_SPECIAL = 1;
 
     public TimeFavoritesItem(int hour, int minute, int type) {
         this.hour = hour;
@@ -41,8 +40,8 @@ public class TimeFavoritesItem {
         this.type = type;
     }
 
-    public int calculateTimeToMinutes(){
-        return (hour*60)+minute;
+    public int calculateTimeToMinutes() {
+        return (hour * 60) + minute;
     }
 
     @Override

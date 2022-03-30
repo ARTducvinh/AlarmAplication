@@ -8,13 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,27 +16,38 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.sql.Time;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AlarmFragment extends Fragment{
+public class AlarmFragment extends Fragment {
 
-    //CÁC THUỘC TÍNH
-    private RecyclerView recyclerViewListAlarm;
     @SuppressLint("StaticFieldLeak")
     private static AlarmAdapter alarmAdapter;
-    private List<TimeElement> timeElementList = new ArrayList<>();
     private final MainActivity mMainActivity;
+    //CÁC THUỘC TÍNH
+    private RecyclerView recyclerViewListAlarm;
+    private List<TimeElement> timeElementList = new ArrayList<>();
     private LinearLayoutManager layoutManager;
     private ImageView imageViewEmptyAlarm;
     private TextView textViewEmptyAlarm;
+
     //public static boolean checkHadInitRecyclerview = false;
     //HÀM KHỞI TẠO
-    public  AlarmFragment(List<TimeElement> timeElementList,MainActivity mainActivity){
+    public AlarmFragment(List<TimeElement> timeElementList, MainActivity mainActivity) {
         this.timeElementList = timeElementList;
         this.mMainActivity = mainActivity;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private static void callUpdate(TimeElement timeElement) {
+        //alarmAdapter.notifyItemChanged(0);
+        alarmAdapter.callUpdate(timeElement);
     }
 
     //TẠO VIEW
@@ -63,29 +67,25 @@ public class AlarmFragment extends Fragment{
         return view;
     }
 
-
     //GỌI ĐẾN HÀM addTimeElement TRONG AlarmAdapter để UPDATE ITEM MỚI ĐƯỢC THÊM
     @SuppressLint("NotifyDataSetChanged")
-    public void getItemUpdate(TimeElement insertElement,int INT_ADD_OR_FIX_ALARM,int POSITION_ALARM_FIX){
-        alarmAdapter.addTimeElement(insertElement,INT_ADD_OR_FIX_ALARM,POSITION_ALARM_FIX);
+    public void getItemUpdate(TimeElement insertElement, int INT_ADD_OR_FIX_ALARM, int POSITION_ALARM_FIX) {
+        alarmAdapter.addTimeElement(insertElement, INT_ADD_OR_FIX_ALARM, POSITION_ALARM_FIX);
     }
 
-
     //SCROLL TỚI ITEM VỪA MỚI ĐƯỢC TẠO HOẶC CẬP NHẬT LẠI
-    public void scrollToPosition(int position){
+    public void scrollToPosition(int position) {
         recyclerViewListAlarm.smoothScrollToPosition(position);
     }
 
-
     //GỌI KHI DANH SÁCH BÁO THỨC KHÁC RỖNG ĐỂ KHỞI TẠO RECYCLERVIEW VÀ ADAPTER
-    public void setAdapterForRecyclerview(){
+    public void setAdapterForRecyclerview() {
 
     }
 
-
     //KHỞI TẠO RECYCLERVIEW VÀ SET ADAPTER CHO RECYCLERVIEW
-    public void initRecyclerView(){
-        alarmAdapter = new AlarmAdapter(timeElementList,getContext(),mMainActivity,this);
+    public void initRecyclerView() {
+        alarmAdapter = new AlarmAdapter(timeElementList, getContext(), mMainActivity, this);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerViewListAlarm.setLayoutManager(layoutManager);
         recyclerViewListAlarm.setHasFixedSize(true);
@@ -110,24 +110,23 @@ public class AlarmFragment extends Fragment{
     }
 
     //HIDE ICON KHI KHÔNG CÓ BÁO THỨC NÀO
-    public void hideEmptyAlarmIcon(boolean mode){
-        if(mode){
+    public void hideEmptyAlarmIcon(boolean mode) {
+        if (mode) {
             textViewEmptyAlarm.setVisibility(View.INVISIBLE);
             imageViewEmptyAlarm.setVisibility(View.INVISIBLE);
-        }
-        else{
+        } else {
             textViewEmptyAlarm.setVisibility(View.VISIBLE);
             imageViewEmptyAlarm.setVisibility(View.VISIBLE);
         }
     }
 
     //GỌI HÀM ONBACKPRESSEDTRUE TRONG ALARM ADAPTER
-    public void callOnBackPressedFunctionInAlarmAdapter(){
+    public void callOnBackPressedFunctionInAlarmAdapter() {
         alarmAdapter.onBackPressedTrue();
     }
 
     //
-    public void callSetCheckHasShowToastToFalse(){
+    public void callSetCheckHasShowToastToFalse() {
         alarmAdapter.setCheckHasShowToastToFalseFromMainActivity();
     }
 
@@ -137,15 +136,9 @@ public class AlarmFragment extends Fragment{
     }
 
     //GỌI HÀM ĐỂ CHỌN TẤT CẢ CÁC ITEMS HIỆN CÓ
-    public void callFunctionSelectAllAlarm(){alarmAdapter.selectAllAlarmToDelete();}
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    private static void callUpdate(TimeElement timeElement){
-        //alarmAdapter.notifyItemChanged(0);
-        alarmAdapter.callUpdate(timeElement);
+    public void callFunctionSelectAllAlarm() {
+        alarmAdapter.selectAllAlarmToDelete();
     }
-
 
     //INNER CLASS
     //BROADCAST RECEIVER
@@ -155,42 +148,41 @@ public class AlarmFragment extends Fragment{
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i("AAA","ON GET BROADCAST");
+            Log.i("AAA", "ON GET BROADCAST");
             //NHẬN DỮ LIỆU TỪ INTENT ĐÃ HỆN TRƯỚC TRUYỀN VÀO KHI ĐÚNG GIỜ
             Bundle getBundleFromBroadcastAndUIOverScreen = intent.getBundleExtra("bundle");
-            Intent intentMusic = new Intent(context.getApplicationContext(),MusicServices.class);
-            intentMusic.putExtra("bundle",getBundleFromBroadcastAndUIOverScreen);
+            Intent intentMusic = new Intent(context.getApplicationContext(), MusicServices.class);
+            intentMusic.putExtra("bundle", getBundleFromBroadcastAndUIOverScreen);
             String state = "off";
-            if(getBundleFromBroadcastAndUIOverScreen != null){
+            if (getBundleFromBroadcastAndUIOverScreen != null) {
                 state = getBundleFromBroadcastAndUIOverScreen.getString("state");
             }
 
             // KIỂM TRA XEM MÀN HÌNH ĐANG BẬT HAY TẮT, NẾU TẮT THÌ MỞ MÀN HÌNH
-            if(state.equals("on")){
+            if (state.equals("on")) {
                 PowerManager pm = (PowerManager) context.getApplicationContext().getSystemService(Context.POWER_SERVICE);
-                if(!pm.isInteractive()){
+                if (!pm.isInteractive()) {
                     @SuppressLint("InvalidWakeLockTag") PowerManager.WakeLock wakeLock = pm.newWakeLock((PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP), "TAG");
-                    wakeLock.acquire(10*60*1000L /*10 minutes*/);
+                    wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
                 }
             }
 
-            Log.i("AAA","ON WAKE UP SCREEN");
+            Log.i("AAA", "ON WAKE UP SCREEN");
 
             // BẮT ĐẦU 1 SERVICE MỞ ÂM THANH VÀ RUNG
             TimeElement timeElement = (TimeElement) getBundleFromBroadcastAndUIOverScreen.getSerializable("timeEelement");
 
             if (!state.equals("on")) {
-                String fromButtonTat = getBundleFromBroadcastAndUIOverScreen.getString("fromButtonTat","false");
-                SharedPreferences sharedPreferences = context.getSharedPreferences("metadata",Context.MODE_PRIVATE);
+                String fromButtonTat = getBundleFromBroadcastAndUIOverScreen.getString("fromButtonTat", "false");
+                SharedPreferences sharedPreferences = context.getSharedPreferences("metadata", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                if(fromButtonTat.equals("true")){
-                    editor.putString("fromButtonTat","true");
+                if (fromButtonTat.equals("true")) {
+                    editor.putString("fromButtonTat", "true");
                     editor.commit();
-                    Log.i("AAA","ID BROADCAST : "+timeElement.getIdAlarm());
+                    Log.i("AAA", "ID BROADCAST : " + timeElement.getIdAlarm());
                     callUpdate(timeElement);
-                }
-                else{
-                    editor.putString("fromButtonTat","false");
+                } else {
+                    editor.putString("fromButtonTat", "false");
                     editor.commit();
                 }
             } else {

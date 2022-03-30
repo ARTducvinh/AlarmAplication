@@ -1,7 +1,5 @@
 package com.example.application;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -16,86 +14,84 @@ import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowId;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class CreateAlarmActivity extends AppCompatActivity {
 
+    // ID CHANNEL CỦA THÔNG BÁO VÀ REGULAR
+    public static final int WAKE_REASON_APPLICATION = 2;
+    //public static int idNotificationShowBefore1Hours =
+    public static final String idChannel = "notificationChannelID";
+    public static final String nameChannel = "notificationChannelName";
+    public static final String notificationData = "notification";
+    public final static int REGULAR_ONCE = 0;
+    public final static int REGULAR_ALL_DAY = 1;
+    public final static int REGULAR_MONDAY_TO_FRIDAY = 2;
+    public final static int REGULAR_OPTIONS = 3;
+    public static int idNotification = 1111;
+    private final Calendar calendarCurrent = Calendar.getInstance();
     private TimePicker timePicker;
-    private ImageView buttonSetTime,buttonCLose;
-    private TextView textViewTimeRemain,textNote,textRegular,textViewOnce,
-            textViewAllDate,textViewFrom2To6,textViewOptions,textViewLabelAddAlarm;
+    private ImageView buttonSetTime, buttonCLose;
+    private TextView textViewTimeRemain, textNote, textRegular, textViewOnce,
+            textViewAllDate, textViewFrom2To6, textViewOptions, textViewLabelAddAlarm;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
-    private Intent intent,intentResult;
-    private SwitchMaterial switchMaterialVibrate,switchMaterialOffAfterRing;
+    private Intent intent, intentResult;
+    private SwitchMaterial switchMaterialVibrate, switchMaterialOffAfterRing;
     private PowerManager pm;
     private TimeElement timeElement;
     private Calendar calendar;
     private SimpleDateFormat simpleDateFormat;
-    private Date timeFirst,timeSecond;
+    private Date timeFirst, timeSecond;
     private long timeRemain;
-    private String textHour,textMinute;
+    private String textHour, textMinute;
     private Calendar currentCalendar;
-    private final Calendar calendarCurrent = Calendar.getInstance();
     private TimeElement tempElement;
     private CustomPendingIntent customPendingIntent;
     private Parcel parcel;
     private byte[] bytesArrayPendingIntent;
     private String tempStr = "Một lần";
     private boolean checkFirstTime = true;
-
     //INIT INSTANCE TO SAVE DATA TO DATABASE
     private SaveDataToSQLite saveDataToSQLite;
-
-    // ID CHANNEL CỦA THÔNG BÁO VÀ REGULAR
-    public static final int WAKE_REASON_APPLICATION = 2;
-    public static int idNotification = 1111;
-    //public static int idNotificationShowBefore1Hours =
-    public static final String idChannel="notificationChannelID";
-    public static final String nameChannel="notificationChannelName";
-    public static final String notificationData="notification";
-
-    public final static int REGULAR_ONCE = 0;
-    public final static int REGULAR_ALL_DAY = 1;
-    public final static int REGULAR_MONDAY_TO_FRIDAY = 2;
-    public final static int REGULAR_OPTIONS = 3;
-
     // CÁC THUỘC TÍNH CỦA PHẦN GIAO DIỆN TẠO BÁO THỨC
-    private ImageView regularOnceCheck,regularAllDateCheck
-            ,regularFrom2To6Check,regularOptionsCheck;
-    private int allIsChecked=0;
+    private ImageView regularOnceCheck, regularAllDateCheck, regularFrom2To6Check, regularOptionsCheck;
+    private int allIsChecked = 0;
 
     //STRING LƯU CÁC LỰA CHỌN TỪ THỨ 2 ĐẾN CHỦ NHẬT
-    private String textThu2="",textThu3="",textThu4="",textThu5="",textThu6="",textThu7="",textThu8="";
+    private String textThu2 = "", textThu3 = "", textThu4 = "", textThu5 = "", textThu6 = "", textThu7 = "", textThu8 = "";
 
     //BOTTOM SHEET DIALOG CỦA LỰA CHỌN LẶP LẠI (MỘT LẦN, HẰNG NGÀY, THỨ 2 ĐẾN THỨ 6, TÙY CHỈNH)
-    private RelativeLayout regularRepeat,onceRepeat,allDateRepeat,from2To6Repeat,optionsRepeat;
-    private BottomSheetDialog bottomSheetDialogRegularRepeat,bottomSheetDialogOptionsMenu;
+    private RelativeLayout regularRepeat, onceRepeat, allDateRepeat, from2To6Repeat, optionsRepeat;
+    private BottomSheetDialog bottomSheetDialogRegularRepeat, bottomSheetDialogOptionsMenu;
 
     //BOTTOM SHEET DIALOG CỦA TÙY CHỌN CỦA NGƯỜI DÙNG TỪ THỨ 2 ĐẾN CHỦ NHẬT
-    private RelativeLayout layoutThu2,layoutThu3,layoutThu4,layoutThu5,layoutThu6,layoutThu7,layoutThu8;
-    private CheckBox checkBoxThu2,checkBoxThu3,checkBoxThu4,checkBoxThu5,checkBoxThu6,checkBoxThu7,checkBoxThu8;
-    private TextView buttonCancelFrom2To8,buttonOkFrom2To8;
+    private RelativeLayout layoutThu2, layoutThu3, layoutThu4, layoutThu5, layoutThu6, layoutThu7, layoutThu8;
+    private CheckBox checkBoxThu2, checkBoxThu3, checkBoxThu4, checkBoxThu5, checkBoxThu6, checkBoxThu7, checkBoxThu8;
+    private TextView buttonCancelFrom2To8, buttonOkFrom2To8;
 
     //CÁC THUỘC TÍNH TRONG BOTTOM SHEET DIALOG CỦA PHẦN THÊM GHI CHÚ CHO BÁO THỨC
-    private RelativeLayout layoutNote,layoutAddNoteCustom;
+    private RelativeLayout layoutNote, layoutAddNoteCustom;
     private BottomSheetDialog bottomSheetDialogAddNote;
     private EditText editTextAddNote;
-    private TextView buttonCancelNote,buttonAddNote;
+    private TextView buttonCancelNote, buttonAddNote;
     private Cursor data;
     private int idAlarm = 0;
 
@@ -107,13 +103,13 @@ public class CreateAlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_alarm);
         //GET DỮ LIỆU TỪ MAINACTIVITY.CLASS CHUYỂN QUA
-        int mode = getIntent().getIntExtra("MODE_ADD_ALARM",1);
-        int state_add_or_fix = getIntent().getIntExtra("STATE_ALARM",0);
+        int mode = getIntent().getIntExtra("MODE_ADD_ALARM", 1);
+        int state_add_or_fix = getIntent().getIntExtra("STATE_ALARM", 0);
         //RETRIEVE ID NOTIFICATION FROM SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("metadata", MODE_PRIVATE);
-        int idTemp = sharedPreferences.getInt("idNotification",1111);
+        int idTemp = sharedPreferences.getInt("idNotification", 1111);
 
-        if(idTemp != 1111){
+        if (idTemp != 1111) {
             idNotification = idTemp;
         }
 
@@ -150,9 +146,9 @@ public class CreateAlarmActivity extends AppCompatActivity {
 
 
         //BOTTOM SHEET DIALOG CỦA "LỰA CHỌN" LẶP LẠI
-        bottomSheetDialogRegularRepeat = new BottomSheetDialog(CreateAlarmActivity.this,R.style.BottomSheetThemeCustom);
+        bottomSheetDialogRegularRepeat = new BottomSheetDialog(CreateAlarmActivity.this, R.style.BottomSheetThemeCustom);
         //ÁNH XẠ VIEW LAYOUT CỦA PHẦN LỰA CHỌN LẶP LẠI (MỘT LẦN, HẰNG NGÀY, THỨ 2 ĐẾN THỨ 6,TÙY CHỌN)
-        View viewBottomSheetDialog = getLayoutInflater().inflate(R.layout.custom_regular_repeat_options,(LinearLayout)findViewById(R.id.regularRepeatLayout));
+        View viewBottomSheetDialog = getLayoutInflater().inflate(R.layout.custom_regular_repeat_options, (LinearLayout) findViewById(R.id.regularRepeatLayout));
         onceRepeat = viewBottomSheetDialog.findViewById(R.id.onceRepeat);
         allDateRepeat = viewBottomSheetDialog.findViewById(R.id.repeatAllDate);
         from2To6Repeat = viewBottomSheetDialog.findViewById(R.id.from2To6);
@@ -165,31 +161,40 @@ public class CreateAlarmActivity extends AppCompatActivity {
         regularFrom2To6Check = viewBottomSheetDialog.findViewById(R.id.regularFrom2To6Check);
         regularOptionsCheck = viewBottomSheetDialog.findViewById(R.id.regularOptionsCheck);
         //ÁNH XẠ TEXTVIEW CỦA LAYOUT "LẶP LẠI"
-        textViewOnce = viewBottomSheetDialog.findViewById(R.id.textViewOnce);textViewAllDate = viewBottomSheetDialog.findViewById(R.id.textViewAllDate);
-        textViewFrom2To6 = viewBottomSheetDialog.findViewById(R.id.textViewFrom2To6); textViewOptions = viewBottomSheetDialog.findViewById(R.id.textViewOptions);
+        textViewOnce = viewBottomSheetDialog.findViewById(R.id.textViewOnce);
+        textViewAllDate = viewBottomSheetDialog.findViewById(R.id.textViewAllDate);
+        textViewFrom2To6 = viewBottomSheetDialog.findViewById(R.id.textViewFrom2To6);
+        textViewOptions = viewBottomSheetDialog.findViewById(R.id.textViewOptions);
 
         //BOTTOM SHEET DIALOG CỦA LỰA CHỌN "TÙY CHỌN" TRONG PHẦN LẶP LẠI
-        bottomSheetDialogOptionsMenu = new BottomSheetDialog(CreateAlarmActivity.this,R.style.BottomSheetThemeCustom);
+        bottomSheetDialogOptionsMenu = new BottomSheetDialog(CreateAlarmActivity.this, R.style.BottomSheetThemeCustom);
         //ÁNH XẠ LAYOUT
-        View viewBottomSheetOptionsMenu = getLayoutInflater().inflate(R.layout.custom_layout_option_bottom_dialog,(LinearLayout)findViewById(R.id.optionsMenuRegular));
-        layoutThu2 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu2);layoutThu3 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu3);
-        layoutThu4 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu4);layoutThu5 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu5);
-        layoutThu6 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu6);layoutThu7 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu7);
+        View viewBottomSheetOptionsMenu = getLayoutInflater().inflate(R.layout.custom_layout_option_bottom_dialog, (LinearLayout) findViewById(R.id.optionsMenuRegular));
+        layoutThu2 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu2);
+        layoutThu3 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu3);
+        layoutThu4 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu4);
+        layoutThu5 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu5);
+        layoutThu6 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu6);
+        layoutThu7 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu7);
         layoutThu8 = viewBottomSheetOptionsMenu.findViewById(R.id.layoutThu8);
         //ÁNH XẠ CHECKBOX
-        checkBoxThu2 = viewBottomSheetOptionsMenu.findViewById(R.id.checkBoxThu2);checkBoxThu3 = viewBottomSheetOptionsMenu.findViewById(R.id.checkBoxThu3);
-        checkBoxThu4 = viewBottomSheetOptionsMenu.findViewById(R.id.checkBoxThu4);checkBoxThu5 = viewBottomSheetOptionsMenu.findViewById(R.id.checkboxThu5);
-        checkBoxThu6 = viewBottomSheetOptionsMenu.findViewById(R.id.checkboxThu6);checkBoxThu7 = viewBottomSheetOptionsMenu.findViewById(R.id.checkboxThu7);
+        checkBoxThu2 = viewBottomSheetOptionsMenu.findViewById(R.id.checkBoxThu2);
+        checkBoxThu3 = viewBottomSheetOptionsMenu.findViewById(R.id.checkBoxThu3);
+        checkBoxThu4 = viewBottomSheetOptionsMenu.findViewById(R.id.checkBoxThu4);
+        checkBoxThu5 = viewBottomSheetOptionsMenu.findViewById(R.id.checkboxThu5);
+        checkBoxThu6 = viewBottomSheetOptionsMenu.findViewById(R.id.checkboxThu6);
+        checkBoxThu7 = viewBottomSheetOptionsMenu.findViewById(R.id.checkboxThu7);
         checkBoxThu8 = viewBottomSheetOptionsMenu.findViewById(R.id.checkBoxThu8);
-        buttonCancelFrom2To8 = viewBottomSheetOptionsMenu.findViewById(R.id.buttonCancelOptionsFrom2To8);buttonOkFrom2To8 = viewBottomSheetOptionsMenu.findViewById(R.id.buttonOkFrom2To8);
+        buttonCancelFrom2To8 = viewBottomSheetOptionsMenu.findViewById(R.id.buttonCancelOptionsFrom2To8);
+        buttonOkFrom2To8 = viewBottomSheetOptionsMenu.findViewById(R.id.buttonOkFrom2To8);
         bottomSheetDialogOptionsMenu.setCanceledOnTouchOutside(true);
         bottomSheetDialogOptionsMenu.setContentView(viewBottomSheetOptionsMenu);
 
         //BOTTOM SHEET DIALOG CỦA PHẦN GHI CHÚ
-        bottomSheetDialogAddNote = new BottomSheetDialog(CreateAlarmActivity.this,R.style.BottomSheetThemeCustomNotes);
+        bottomSheetDialogAddNote = new BottomSheetDialog(CreateAlarmActivity.this, R.style.BottomSheetThemeCustomNotes);
         layoutAddNoteCustom = findViewById(R.id.layoutInputNote);
         //ÁNH XẠ VIEW CỦA BOTTOMSHEETDIALOG THÊM GHI CHÚ
-        View viewAddNote = getLayoutInflater().inflate(R.layout.custom_layout_write_note,(RelativeLayout)findViewById(R.id.layoutInputNote));
+        View viewAddNote = getLayoutInflater().inflate(R.layout.custom_layout_write_note, (RelativeLayout) findViewById(R.id.layoutInputNote));
         editTextAddNote = viewAddNote.findViewById(R.id.editTextNote);
         buttonCancelNote = viewAddNote.findViewById(R.id.buttonCancelNote);
         buttonAddNote = viewAddNote.findViewById(R.id.buttonAddNote);
@@ -198,31 +203,34 @@ public class CreateAlarmActivity extends AppCompatActivity {
 
 
         //NẾU LÀ MODE = 2 THÌ ĐANG Ở CHẾ ĐỘ SỬA BÁO THỨC CÒN 1 THÌ TẠO BÁO THỨC MỚI
-        if(mode==2){
+        if (mode == 2) {
             String tempHourMinute = getIntent().getStringExtra("TEMP_HOUR_MINUTE");
             String state = getIntent().getStringExtra("STATE");
             TimeElement item = (TimeElement) getIntent().getSerializableExtra("TIME_ELEMENT");
             String stateVibrateIntent = getIntent().getStringExtra("STATE_ALARM_VIBRATE");
             textViewLabelAddAlarm.setText("Sửa báo thức");
             idAlarm = item.getIdAlarm();
-            if (state.equals("off")) {textViewTimeRemain.setText("Tắt");} else{textViewTimeRemain.setText(item.getTimeCountdown());}
+            if (state.equals("off")) {
+                textViewTimeRemain.setText("Tắt");
+            } else {
+                textViewTimeRemain.setText(item.getTimeCountdown());
+            }
             timePicker.setHour(Integer.parseInt(tempHourMinute.split(":")[0]));
             timePicker.setMinute(Integer.parseInt(tempHourMinute.split(":")[1]));
             textRegular.setText(item.getRegular());
             textNote.setText(item.getNote());
             editTextAddNote.setText(item.getNote());
             switchMaterialVibrate.setChecked(item.getVibrate());
-            if(item.getVibrate()){
+            if (item.getVibrate()) {
                 switchMaterialVibrate.setBackground(switchMaterialVibrate.getResources().getDrawable(R.drawable.custom_background_switch_on));
-            }
-            else{
+            } else {
                 switchMaterialVibrate.setBackground(switchMaterialVibrate.getResources().getDrawable(R.drawable.custom_background_switch_off));
             }
-            if(item.getVibrate()){
+            if (item.getVibrate()) {
 
             }
             String textRe = item.getRegular();
-            switch (textRe){
+            switch (textRe) {
                 case "Một lần":
                     changeBackgroundItemRegular(0);
                     break;
@@ -252,7 +260,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String text = editTextAddNote.getText().toString().trim();
-                if(!text.isEmpty()){
+                if (!text.isEmpty()) {
                     textNote.setText(text);
                 }
                 bottomSheetDialogAddNote.dismiss();
@@ -282,20 +290,25 @@ public class CreateAlarmActivity extends AppCompatActivity {
                 int minute = timePicker.getCurrentMinute();
 
                 //SET THỜI GIAN BÁO THỨC
-                calendar.set(Calendar.HOUR_OF_DAY,hour);
-                calendar.set(Calendar.MINUTE,minute);
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
+                calendar.set(Calendar.MINUTE, minute);
 
-                String hourStr = null,minuteStr = null,timeRemain=null;
-                hourStr = String.valueOf(hour);minuteStr = String.valueOf(minute);
-                if(hour < 10){ hourStr = "0"+ hour; }
-                if(minute < 10){ minuteStr = "0"+ minute; }
+                String hourStr = null, minuteStr = null, timeRemain = null;
+                hourStr = String.valueOf(hour);
+                minuteStr = String.valueOf(minute);
+                if (hour < 10) {
+                    hourStr = "0" + hour;
+                }
+                if (minute < 10) {
+                    minuteStr = "0" + minute;
+                }
 
                 //LẤY KHOẢNG THỜI GIAN BÁO THỨC
                 timeSecond = calendar.getTime();
 
                 //TÍNH KHOẢNG THỜI GIAN BÁO THỨC CÒN LẠI
-                timeRemain =  findTimeRemain(timeFirst,timeSecond);
-                String time = hourStr+":"+minuteStr;
+                timeRemain = findTimeRemain(timeFirst, timeSecond);
+                String time = hourStr + ":" + minuteStr;
 
                 //LẤY TEXT CỦA REGULAR, NOTE, VÀ XEM THỬ CÓ RUNG KHI BÁO THỨC HAY KHÔNG
                 String regularStr = textRegular.getText().toString();
@@ -303,52 +316,52 @@ public class CreateAlarmActivity extends AppCompatActivity {
                 boolean vibrate = switchMaterialVibrate.isChecked();
 
                 //TẠO INTENT ĐỂ ĐƯA DỮ LIỆU VÀ CHO MAIN_ACTIVITY
-                intentResult = new Intent(CreateAlarmActivity.this,MainActivity.class);
-                timeElement = new TimeElement(hourStr,minuteStr,note,regularStr,String.valueOf(timeRemain),true,vibrate);
+                intentResult = new Intent(CreateAlarmActivity.this, MainActivity.class);
+                timeElement = new TimeElement(hourStr, minuteStr, note, regularStr, String.valueOf(timeRemain), true, vibrate);
                 timeElement.setIdAlarm(idNotification);
 
-                if (state_add_or_fix == TimeElement.STATE_FIX_ALARM){
-                    int position_item_fix = getIntent().getIntExtra("POSITION",-1);
-                    intentResult.putExtra("POSITION",position_item_fix);
+                if (state_add_or_fix == TimeElement.STATE_FIX_ALARM) {
+                    int position_item_fix = getIntent().getIntExtra("POSITION", -1);
+                    intentResult.putExtra("POSITION", position_item_fix);
                     timeElement.setIdAlarm(item.getIdAlarm());
                 }
 
-                intentResult.putExtra("timeElement",timeElement);
-                intentResult.putExtra("STATE_ALARM",state_add_or_fix);
+                intentResult.putExtra("timeElement", timeElement);
+                intentResult.putExtra("STATE_ALARM", state_add_or_fix);
 
                 //ĐÓNG GÓI DỮ LIỆU VÀO BUNDLE ĐỂ GỬI ĐẾN ALARM RECEIVER BROADCAST
                 intent = new Intent(getApplicationContext(), AlarmFragment.CustomBroadcast.class);
                 Bundle bundleSendToBroadcast = new Bundle();
-                bundleSendToBroadcast.putString("state","on");
-                bundleSendToBroadcast.putSerializable("timeEelement",timeElement);
+                bundleSendToBroadcast.putString("state", "on");
+                bundleSendToBroadcast.putSerializable("timeEelement", timeElement);
 
                 intent.setAction("runBackground");
-                intent.putExtra("bundle",bundleSendToBroadcast);
+                intent.putExtra("bundle", bundleSendToBroadcast);
 
 
                 //TẠO PENDING INTENT VÀ TẠO BÁO THỨC
-                pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),idNotification,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idNotification, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis()-10000,pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis() - 10000, pendingIntent);
 
                 //PROBLEM : SET TIME FOR SHOW NOTIFICATION BEFORE 1 HOUR
 
 
                 //SAVE PENDING INTENT TO DATABASE TO RETRIEVE CANCEL.
-                customPendingIntent = CustomPendingIntent.getBroadcast(idNotification,intent,PendingIntent.FLAG_CANCEL_CURRENT);
+                customPendingIntent = CustomPendingIntent.getBroadcast(idNotification, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                 parcel = Parcel.obtain();
                 parcel.writeValue(customPendingIntent);
                 bytesArrayPendingIntent = parcel.marshall();
                 parcel.recycle();
 
                 //SAVE PENDING INTENT TO DATABASE
-                if(state_add_or_fix == TimeElement.STATE_FIX_ALARM){
-                    Log.i("AAA","STATE FIX ALARM");
+                if (state_add_or_fix == TimeElement.STATE_FIX_ALARM) {
+                    Log.i("AAA", "STATE FIX ALARM");
                     Thread a;
                     a = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            saveDataToSQLite.updateDataToTablePendingIntent(item.getIdAlarm(),bytesArrayPendingIntent);
+                            saveDataToSQLite.updateDataToTablePendingIntent(item.getIdAlarm(), bytesArrayPendingIntent);
                         }
                     });
                     a.start();
@@ -357,17 +370,16 @@ public class CreateAlarmActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }
-                else{
-                    Log.i("AAA","STATE ADD ALARM");
+                } else {
+                    Log.i("AAA", "STATE ADD ALARM");
                     Thread a;
-                     a = new Thread(new Runnable() {
-                         @Override
-                         public void run() {
-                            saveDataToSQLite.saveDataToTablePendingIntent(idNotification,bytesArrayPendingIntent);
-                         }
-                     });
-                     a.start();
+                    a = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            saveDataToSQLite.saveDataToTablePendingIntent(idNotification, bytesArrayPendingIntent);
+                        }
+                    });
+                    a.start();
                     try {
                         a.join();
                     } catch (InterruptedException e) {
@@ -382,16 +394,16 @@ public class CreateAlarmActivity extends AppCompatActivity {
                 //ĐÃ LƯU Ở DATABASE VỚI ID BÁO THỨC ĐÓ
                 //KHÔNG THÌ QUERY ĐỂ SAVE BÁO THỨC MỚI
                 //NẾU LÀ THÊM BÁO THỨC THÌ INSERT
-                if(state_add_or_fix == TimeElement.STATE_ADD_ALARM){
+                if (state_add_or_fix == TimeElement.STATE_ADD_ALARM) {
                     ContentValues contentValues = new ContentValues();
-                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_ID,timeElement.getIdAlarm());
-                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_HOURS,timeElement.getHour());
-                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_MINUTES,timeElement.getMinute());
-                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_NOTES,timeElement.getNote());
-                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_REGULARS,timeElement.getRegular());
-                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_TIME_COUNTDOWN,timeElement.getTimeCountdown());
-                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_STATE_ALARM,1);
-                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_STATE_VIBRATE,vibrateState);
+                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_ID, timeElement.getIdAlarm());
+                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_HOURS, timeElement.getHour());
+                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_MINUTES, timeElement.getMinute());
+                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_NOTES, timeElement.getNote());
+                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_REGULARS, timeElement.getRegular());
+                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_TIME_COUNTDOWN, timeElement.getTimeCountdown());
+                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_STATE_ALARM, 1);
+                    contentValues.put(SaveDataToSQLite.COLUMN_NAME_STATE_VIBRATE, vibrateState);
 
                     Thread a;
                     a = new Thread(new Runnable() {
@@ -412,7 +424,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
                     saveIDNotification();
                 }
                 //NẾU LÀ SỬA BÁO THỨC
-                if(state_add_or_fix == TimeElement.STATE_FIX_ALARM){
+                if (state_add_or_fix == TimeElement.STATE_FIX_ALARM) {
                     Thread a;
                     a = new Thread(new Runnable() {
                         @Override
@@ -428,7 +440,7 @@ public class CreateAlarmActivity extends AppCompatActivity {
                     }
                 }
                 //QUAY TRỞ VỀ MAINACTIVITY.CLASS
-                setResult(RESULT_OK,intentResult);
+                setResult(RESULT_OK, intentResult);
                 finish();
             }
 
@@ -439,11 +451,11 @@ public class CreateAlarmActivity extends AppCompatActivity {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hourChange, int minuteChange) {
                 Calendar calendarFromChange = Calendar.getInstance();
-                calendarFromChange.set(Calendar.HOUR_OF_DAY,hourChange);
-                calendarFromChange.set(Calendar.MINUTE,minuteChange);
+                calendarFromChange.set(Calendar.HOUR_OF_DAY, hourChange);
+                calendarFromChange.set(Calendar.MINUTE, minuteChange);
                 Date currentTime = calendarCurrent.getTime();
                 Date newDate = calendarFromChange.getTime();
-                int hourChangeE,minuteChangeE;
+                int hourChangeE, minuteChangeE;
                 long milliseconds = newDate.getTime() - currentTime.getTime();
 
                 if (milliseconds <= 0) {
@@ -452,18 +464,16 @@ public class CreateAlarmActivity extends AppCompatActivity {
                     milliseconds = dateNew.getTime() - currentTime.getTime();
                 }
 
-                hourChangeE   = (int) ((milliseconds / (1000*60*60)) % 24);
-                minuteChangeE = (int) ((milliseconds / (1000*60)) % 60);
+                hourChangeE = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+                minuteChangeE = (int) ((milliseconds / (1000 * 60)) % 60);
 
-                if(hourChangeE==0){
-                    textViewTimeRemain.setText("Báo thức sau "+minuteChangeE+" phút");
-                }
-                else{
-                    if(minuteChangeE==0){
-                        textViewTimeRemain.setText("Báo thức sau "+hourChangeE+" giờ ");
-                    }
-                    else{
-                        textViewTimeRemain.setText("Báo thức sau "+hourChangeE+" giờ "+minuteChangeE+" phút");
+                if (hourChangeE == 0) {
+                    textViewTimeRemain.setText("Báo thức sau " + minuteChangeE + " phút");
+                } else {
+                    if (minuteChangeE == 0) {
+                        textViewTimeRemain.setText("Báo thức sau " + hourChangeE + " giờ ");
+                    } else {
+                        textViewTimeRemain.setText("Báo thức sau " + hourChangeE + " giờ " + minuteChangeE + " phút");
                     }
                 }
             }
@@ -481,11 +491,10 @@ public class CreateAlarmActivity extends AppCompatActivity {
         switchMaterialVibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     switchMaterialVibrate.setBackground(switchMaterialVibrate.getResources().getDrawable(R.drawable.custom_background_switch_on));
                     switchMaterialVibrate.setChecked(true);
-                }
-                else{
+                } else {
                     switchMaterialVibrate.setBackground(switchMaterialVibrate.getResources().getDrawable(R.drawable.custom_background_switch_off));
                     switchMaterialVibrate.setChecked(false);
                 }
@@ -496,10 +505,9 @@ public class CreateAlarmActivity extends AppCompatActivity {
         switchMaterialOffAfterRing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     switchMaterialOffAfterRing.setBackground(switchMaterialOffAfterRing.getResources().getDrawable(R.drawable.custom_background_switch_on));
-                }
-                else{
+                } else {
                     switchMaterialOffAfterRing.setBackground(switchMaterialOffAfterRing.getResources().getDrawable(R.drawable.custom_background_switch_off));
                 }
             }
@@ -510,21 +518,30 @@ public class CreateAlarmActivity extends AppCompatActivity {
         onceRepeat.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
-            public void onClick(View view) { tempStr = "Một lần";changeBackgroundItemRegular(0); }
+            public void onClick(View view) {
+                tempStr = "Một lần";
+                changeBackgroundItemRegular(0);
+            }
         });
 
         //ONCLICK LAYOUT LẶP LẠI HẰNG NGÀY
         allDateRepeat.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
-            public void onClick(View view) { tempStr = "Th2 Th3 Th4 Th5 Th6 Th7 CN";changeBackgroundItemRegular(1); }
+            public void onClick(View view) {
+                tempStr = "Th2 Th3 Th4 Th5 Th6 Th7 CN";
+                changeBackgroundItemRegular(1);
+            }
         });
 
         //ONCLICK LAYOUT LẶP LẠI TỪ THỨ 2 ĐẾN THỨ 6
         from2To6Repeat.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
-            public void onClick(View view) { tempStr = "Th2 Th3 Th4 Th5 Th6";changeBackgroundItemRegular(2); }
+            public void onClick(View view) {
+                tempStr = "Th2 Th3 Th4 Th5 Th6";
+                changeBackgroundItemRegular(2);
+            }
         });
 
 
@@ -619,19 +636,16 @@ public class CreateAlarmActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String regular = getRegularSelection();
                 tempStr = regular;
-                if(!regular.isEmpty() && allIsChecked!=7){
-                    if(checkBoxThu2.isChecked() && checkBoxThu3.isChecked() && checkBoxThu4.isChecked() &&
-                            checkBoxThu5.isChecked() && checkBoxThu6.isChecked()){
+                if (!regular.isEmpty() && allIsChecked != 7) {
+                    if (checkBoxThu2.isChecked() && checkBoxThu3.isChecked() && checkBoxThu4.isChecked() &&
+                            checkBoxThu5.isChecked() && checkBoxThu6.isChecked()) {
                         textRegular.setText("Thứ hai đến Thứ sáu");
-                    }
-                    else{
+                    } else {
                         textRegular.setText(regular);
                     }
-                }
-                else if(!regular.isEmpty() && allIsChecked==7){
+                } else if (!regular.isEmpty() && allIsChecked == 7) {
                     textRegular.setText("Hằng ngày");
-                }
-                else{
+                } else {
                     textRegular.setText("Một lần");
                 }
                 bottomSheetDialogOptionsMenu.dismiss();
@@ -643,8 +657,8 @@ public class CreateAlarmActivity extends AppCompatActivity {
 
     //THAY ĐỔI BACKGROUND CỦA CÁC ITEM TRONG BOTTOMSHEETDIALOG PHẦN LẶP LẠI
     @SuppressLint("UseCompatLoadingForDrawables")
-    public void changeBackgroundItemRegular(int position){
-        switch(position) {
+    public void changeBackgroundItemRegular(int position) {
+        switch (position) {
             case 0: // LẶP LẠI 1 LẦN
                 textRegular.setText("Một lần");
                 onceRepeat.setBackground(getResources().getDrawable(R.color.backgroundItemRegularSelected));
@@ -728,46 +742,51 @@ public class CreateAlarmActivity extends AppCompatActivity {
 
     //function HIỂN THỊ BOTTOMSHEETDIALOG PHẦN TÙY CHỌN LẶP LẠI (THỨ 2 -> CHỦ NHẬT)
     // VÀ TICK CÁC CHECKBOX ĐÃ CHỌN
-    public void showOptionsMenuRegular(){
-        int mode = getIntent().getIntExtra("MODE_ADD_ALARM",1);
+    public void showOptionsMenuRegular() {
+        int mode = getIntent().getIntExtra("MODE_ADD_ALARM", 1);
         TimeElement item = (TimeElement) getIntent().getSerializableExtra("TIME_ELEMENT");
-        if(item != null && !checkFirstTime){
+        if (item != null && !checkFirstTime) {
             item.setRegular(tempStr);
         }
-        if(mode == 2){
+        if (mode == 2) {
             String regularStr = item.getRegular();
-            if( !regularStr.equals("Một lần")){
+            if (!regularStr.equals("Một lần")) {
                 String[] arr = regularStr.split(" ");
-                if(regularStr.equals("Hằng ngày")){
+                if (regularStr.equals("Hằng ngày")) {
                     arr = "Th2 Th3 Th4 Th5 Th6 Th7 CN".split(" ");
                 }
-                if(regularStr.equals("Thứ hai đến Thứ sáu")){
+                if (regularStr.equals("Thứ hai đến Thứ sáu")) {
                     arr = "Th2 Th3 Th4 Th5 Th6".split(" ");
                 }
-                checkBoxThu7.setChecked(false);checkBoxThu8.setChecked(false);
-                for (String a : arr){
+                checkBoxThu7.setChecked(false);
+                checkBoxThu8.setChecked(false);
+                for (String a : arr) {
                     switchCaseTickCheckBox(a);
                 }
-            }
-            else {
-                checkBoxThu2.setChecked(false);checkBoxThu3.setChecked(false);
-                checkBoxThu4.setChecked(false);checkBoxThu5.setChecked(false);
-                checkBoxThu6.setChecked(false);checkBoxThu7.setChecked(false);
+            } else {
+                checkBoxThu2.setChecked(false);
+                checkBoxThu3.setChecked(false);
+                checkBoxThu4.setChecked(false);
+                checkBoxThu5.setChecked(false);
+                checkBoxThu6.setChecked(false);
+                checkBoxThu7.setChecked(false);
                 checkBoxThu8.setChecked(false);
             }
-        }
-        else {
-            if(!tempStr.equals("Một lần")){
+        } else {
+            if (!tempStr.equals("Một lần")) {
                 String[] arr = tempStr.split(" ");
-                checkBoxThu7.setChecked(false);checkBoxThu8.setChecked(false);
-                for (String a : arr){
+                checkBoxThu7.setChecked(false);
+                checkBoxThu8.setChecked(false);
+                for (String a : arr) {
                     switchCaseTickCheckBox(a);
                 }
-            }
-            else{
-                checkBoxThu2.setChecked(false);checkBoxThu3.setChecked(false);
-                checkBoxThu4.setChecked(false);checkBoxThu5.setChecked(false);
-                checkBoxThu6.setChecked(false);checkBoxThu7.setChecked(false);
+            } else {
+                checkBoxThu2.setChecked(false);
+                checkBoxThu3.setChecked(false);
+                checkBoxThu4.setChecked(false);
+                checkBoxThu5.setChecked(false);
+                checkBoxThu6.setChecked(false);
+                checkBoxThu7.setChecked(false);
                 checkBoxThu8.setChecked(false);
             }
         }
@@ -775,30 +794,37 @@ public class CreateAlarmActivity extends AppCompatActivity {
         bottomSheetDialogOptionsMenu.show();
     }
 
-    public void switchCaseTickCheckBox(String temp){
-        switch (temp){
+    public void switchCaseTickCheckBox(String temp) {
+        switch (temp) {
             case "Th2":
-                checkBoxThu2.setChecked(true);break;
+                checkBoxThu2.setChecked(true);
+                break;
             case "Th3":
-                checkBoxThu3.setChecked(true);break;
+                checkBoxThu3.setChecked(true);
+                break;
             case "Th4":
-                checkBoxThu4.setChecked(true);break;
+                checkBoxThu4.setChecked(true);
+                break;
             case "Th5":
-                checkBoxThu5.setChecked(true);break;
+                checkBoxThu5.setChecked(true);
+                break;
             case "Th6":
-                checkBoxThu6.setChecked(true);break;
+                checkBoxThu6.setChecked(true);
+                break;
             case "Th7":
-                checkBoxThu7.setChecked(true);break;
+                checkBoxThu7.setChecked(true);
+                break;
             case "CN":
-                checkBoxThu8.setChecked(true);break;
+                checkBoxThu8.setChecked(true);
+                break;
             default:
                 break;
         }
     }
 
     //SET CLICKED TRÊN MỖI CHECKBOX
-    public void onBottomSheetOptionsClicked(int position){
-        switch (position){
+    public void onBottomSheetOptionsClicked(int position) {
+        switch (position) {
             case 0://TRƯỜNG HỢP LẶP LẠI VÀO THỨ 2 NẾU CHECK BOX IS CHECKED THÌ SET NGƯỢC LẠI
                 checkBoxThu2.setChecked(!checkBoxThu2.isChecked());
                 break;
@@ -826,45 +852,66 @@ public class CreateAlarmActivity extends AppCompatActivity {
     }
 
     //KIỂM TRA CHECKED CÁC CHECKBOX
-    public String getRegularSelection(){
-        allIsChecked=0;
-        if(checkBoxThu2.isChecked()){
-            textThu2="Th2";++allIsChecked;}
-        else{
-            textThu2="";--allIsChecked;}
-        if(checkBoxThu3.isChecked()){
-            textThu3="Th3";++allIsChecked;}
-        else{
-            textThu3="";--allIsChecked;}
-        if(checkBoxThu4.isChecked()){
-            textThu4="Th4";++allIsChecked;}
-        else{
-            textThu4="";--allIsChecked;}
-        if(checkBoxThu5.isChecked()){
-            textThu5="Th5";++allIsChecked;}
-        else{
-            textThu5="";--allIsChecked;}
-        if(checkBoxThu6.isChecked()){
-            textThu6="Th6";++allIsChecked;}
-        else{
-            textThu6="";--allIsChecked;}
-        if(checkBoxThu7.isChecked()){
-            textThu7="Th7";++allIsChecked;}
-        else{
-            textThu7="";--allIsChecked;}
-        if(checkBoxThu8.isChecked()){
-            textThu8="CN";++allIsChecked;}
-        else{
-            textThu8="";--allIsChecked;}
-        String[] regularArray = {textThu2,textThu3,textThu4,textThu5,textThu6,textThu7,textThu8};
+    public String getRegularSelection() {
+        allIsChecked = 0;
+        if (checkBoxThu2.isChecked()) {
+            textThu2 = "Th2";
+            ++allIsChecked;
+        } else {
+            textThu2 = "";
+            --allIsChecked;
+        }
+        if (checkBoxThu3.isChecked()) {
+            textThu3 = "Th3";
+            ++allIsChecked;
+        } else {
+            textThu3 = "";
+            --allIsChecked;
+        }
+        if (checkBoxThu4.isChecked()) {
+            textThu4 = "Th4";
+            ++allIsChecked;
+        } else {
+            textThu4 = "";
+            --allIsChecked;
+        }
+        if (checkBoxThu5.isChecked()) {
+            textThu5 = "Th5";
+            ++allIsChecked;
+        } else {
+            textThu5 = "";
+            --allIsChecked;
+        }
+        if (checkBoxThu6.isChecked()) {
+            textThu6 = "Th6";
+            ++allIsChecked;
+        } else {
+            textThu6 = "";
+            --allIsChecked;
+        }
+        if (checkBoxThu7.isChecked()) {
+            textThu7 = "Th7";
+            ++allIsChecked;
+        } else {
+            textThu7 = "";
+            --allIsChecked;
+        }
+        if (checkBoxThu8.isChecked()) {
+            textThu8 = "CN";
+            ++allIsChecked;
+        } else {
+            textThu8 = "";
+            --allIsChecked;
+        }
+        String[] regularArray = {textThu2, textThu3, textThu4, textThu5, textThu6, textThu7, textThu8};
 
-        return TextUtils.join(" ",regularArray).replaceAll("\\s{2,}", " ").trim();
+        return TextUtils.join(" ", regularArray).replaceAll("\\s{2,}", " ").trim();
     }
 
 
     //TÌM THỜI GIAN ĐẾM NGƯỢC CHO ĐẾN KHI BÁO THỨC
-    public String findTimeRemain(Date current,Date setTime){
-        int hours = 0,minutes = 0;
+    public String findTimeRemain(Date current, Date setTime) {
+        int hours = 0, minutes = 0;
         long milliseconds = setTime.getTime() - current.getTime();
 
         if (milliseconds <= 0) {
@@ -872,20 +919,19 @@ public class CreateAlarmActivity extends AppCompatActivity {
             Date dateNew = calendar.getTime();
             milliseconds = dateNew.getTime() - current.getTime();
         }
-        hours   = (int) ((milliseconds / (1000*60*60)) % 24);
-        minutes = (int) ((milliseconds / (1000*60)) % 60);
+        hours = (int) ((milliseconds / (1000 * 60 * 60)) % 24);
+        minutes = (int) ((milliseconds / (1000 * 60)) % 60);
 
         return hours > 0 ? minutes > 0 ? "Báo thức sau " + hours + " giờ " + minutes + " phút"
-                                        : "Báo thức sau " + hours + " giờ " :
+                : "Báo thức sau " + hours + " giờ " :
                 "Báo thức sau " + minutes + " phút";
     }
 
 
-
-    public void saveIDNotification(){
+    public void saveIDNotification() {
         SharedPreferences sharedPreferences = getSharedPreferences("metadata", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("idNotification",idNotification);
+        editor.putInt("idNotification", idNotification);
         editor.commit();
     }
 }
