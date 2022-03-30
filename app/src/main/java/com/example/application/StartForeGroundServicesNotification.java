@@ -34,10 +34,9 @@ public class StartForeGroundServicesNotification extends JobService {
     public static NotificationManager manager;
     public static int posPause = 0;
     public static MediaPlayer mediaPlayer;
-    public static int[] songs = new int[]{R.raw.perfect_ed};
-    //    ,R.raw.mp3_jungle_music, R.raw.mpe_summer_night_sound,
-//    R.raw.mp3_beach_sound,R.raw.mp3_raining_sound,
-//    R.raw.mp3_fire_sound
+    public static int[] songs = new int[]{R.raw.perfect_ed,R.raw.clean_bandit_rockabye_sound,
+                                            R.raw.fall_out_boy_sound,R.raw.jaymes_young_infinity_sound,
+                                        R.raw.numb_arc_north_new_beat_sound,R.raw.vietsub_lyrics_demons_sound};
     public static boolean[] hasStarted = new boolean[]{false, false, false, false, false, false};
     public static CountDownTimer countDownTimer;
     public static int posSongChoice = 0;
