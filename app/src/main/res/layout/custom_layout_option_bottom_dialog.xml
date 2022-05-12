@@ -128,7 +128,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 android:gravity="start|center_vertical"
-                android:text="@string/Thurday"
+                android:text="@string/Thursday"
                 android:textSize="20sp" />
 
             <CheckBox

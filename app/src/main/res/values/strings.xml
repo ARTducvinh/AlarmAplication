@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ngu ngốc</string>
+    <string name="app_name">KhanAlarm</string>
 
     <!--    STRING FOR ALARM APPLICATION-->
     <string name="OnceRepeat">Một lần</string>
@@ -9,7 +9,7 @@
     <string name="Monday">Thứ hai</string>
     <string name="Tuesday">Thứ ba</string>
     <string name="Wednesday">Thứ tư</string>
-    <string name="Thurday">Thứ năm</string>
+    <string name="Thursday">Thứ năm</string>
     <string name="Friday">Thứ sáu</string>
     <string name="Saturday">Thứ bảy</string>
     <string name="Sunday">Chủ nhật</string>

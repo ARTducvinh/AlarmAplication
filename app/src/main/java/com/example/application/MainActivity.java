@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements ChangeStateButton
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == RESULT_OK){
+                        Log.i("AAA","GET DATA RETURN");
                         Intent intent = result.getData();
                         assert intent != null;
                         int state_add_or_fix = intent.getIntExtra("STATE_ALARM",0);
